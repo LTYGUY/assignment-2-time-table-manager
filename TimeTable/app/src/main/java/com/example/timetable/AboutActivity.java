@@ -14,10 +14,10 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        NavigationManager.Instance.OpenedActivity(this);
+        AllManagers.NavigationManager.OpenedActivity(this);
     }
 
     public void GoBack(View view){
-        NavigationManager.Instance.CloseCurrentActivity();
+        AllManagers.NavigationManager.CloseCurrentActivity();
     }
 }

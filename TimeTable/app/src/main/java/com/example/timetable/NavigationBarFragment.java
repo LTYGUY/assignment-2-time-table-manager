@@ -39,7 +39,7 @@ public class NavigationBarFragment extends Fragment {
         mainScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavigationManager.Instance.GoToActivity(MainActivity.class);
+                AllManagers.NavigationManager.GoToActivity(MainActivity.class);
             }
         });
 
@@ -54,7 +54,7 @@ public class NavigationBarFragment extends Fragment {
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavigationManager.Instance.GoToActivity(AboutActivity.class);
+                AllManagers.NavigationManager.GoToActivity(AboutActivity.class);
             }
         });
 

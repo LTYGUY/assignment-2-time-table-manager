@@ -14,8 +14,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //just need to run this once for initialising
-        new NavigationManager();
+        //Load up all the managers this application will use
+        new AllManagers();
 
-        NavigationManager.Instance.SetMainScreen(this);
+        AllManagers.NavigationManager.SetMainScreen(this);
     }
 }
