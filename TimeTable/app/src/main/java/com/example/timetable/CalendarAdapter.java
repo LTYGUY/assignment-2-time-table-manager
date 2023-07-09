@@ -1,3 +1,5 @@
+//Written by: Collin, Ting Ying
+
 package com.example.timetable;
 
 import android.view.LayoutInflater;

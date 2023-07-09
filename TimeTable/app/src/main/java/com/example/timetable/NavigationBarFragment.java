@@ -1,3 +1,5 @@
+//Written by: Ting Ying,
+
 package com.example.timetable;
 
 import android.content.Intent;
@@ -28,7 +30,25 @@ public class NavigationBarFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_navigation_bar, container, false);
 
+        //calendar button in the main navigation bar
+        ImageButton mainScreenButton = (ImageButton)v.findViewById(R.id.mainScreenButton);
+        ImageButton addButton = (ImageButton)v.findViewById(R.id.addButton);
         ImageButton aboutButton = (ImageButton)v.findViewById(R.id.aboutScreenButton);
+
+
+        mainScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavigationManager.Instance.GoToActivity(MainActivity.class);
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override

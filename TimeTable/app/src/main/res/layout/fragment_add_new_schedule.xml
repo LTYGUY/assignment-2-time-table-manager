@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNewScheduleFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/addNewScheduleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Add new"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/addNewNameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:contentDescription="add new name title"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Name:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/addNewNameEdit"
+                android:layout_width="276dp"
+                android:layout_height="67dp"
+                android:layout_weight="4"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Name" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/addNewDescTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:contentDescription="add new description title"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Description:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/addNewDescEdit"
+                android:layout_width="276dp"
+                android:layout_height="67dp"
+                android:layout_weight="4"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Description" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/addNewDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:contentDescription="add new description title"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Date:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/addNewDateEdit"
+                android:layout_width="276dp"
+                android:layout_height="67dp"
+                android:layout_weight="4"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Choose a date" />
+
+            <ImageButton
+                android:id="@+id/addNewDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:contentDescription="date button"
+                android:src="@android:drawable/ic_menu_my_calendar" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

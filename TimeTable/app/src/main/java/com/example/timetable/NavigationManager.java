@@ -40,6 +40,10 @@ public class NavigationManager {
 
     public void GoToActivity(Class activityClass)
     {
+        //if trying to go same activity, will do nothing
+        if (activityClass == currentActivity.getClass())
+            return;
+
         currentActivity.startActivity(new Intent(currentActivity, activityClass));
     }
 

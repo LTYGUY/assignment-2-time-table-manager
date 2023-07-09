@@ -22,6 +22,15 @@
             android:src="@android:drawable/ic_menu_my_calendar" />
 
         <ImageButton
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/navigation_bar_background_color"
+            android:contentDescription="add button"
+            android:src="@android:drawable/ic_menu_add" />
+
+        <ImageButton
             android:id="@+id/aboutScreenButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
