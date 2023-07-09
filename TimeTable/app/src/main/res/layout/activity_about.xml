@@ -41,12 +41,13 @@
         app:layout_constraintTop_toBottomOf="@+id/aboutContent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/aboutBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:contentDescription="back button"
+        android:onClick="GoBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert" />

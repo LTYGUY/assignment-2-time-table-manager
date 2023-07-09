@@ -11,10 +11,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //just need to happen once, but can be called multiple times without breaking.
+        //just need to run this once for initialising
         new NavigationManager();
 
         NavigationManager.Instance.SetMainScreen(this);
-        NavigationManager.Instance.SetCurrentActivity(this);
     }
 }
