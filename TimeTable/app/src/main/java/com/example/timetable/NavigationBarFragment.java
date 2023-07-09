@@ -46,7 +46,8 @@ public class NavigationBarFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AddNewScheduleFragment frag = new AddNewScheduleFragment();
+                frag.show(getChildFragmentManager(), "");
             }
         });
 

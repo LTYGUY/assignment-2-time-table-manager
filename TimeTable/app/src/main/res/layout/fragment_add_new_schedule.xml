@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddNewScheduleFragment" >
+    android:layout_width="300dp"
+    android:layout_height="500dp"
+    tools:context=".AddNewScheduleFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
                 android:id="@+id/addNewNameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:layout_weight="1"
                 android:contentDescription="add new name title"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="Name:"
@@ -42,52 +42,36 @@
 
             <EditText
                 android:id="@+id/addNewNameEdit"
-                android:layout_width="276dp"
                 android:layout_height="67dp"
-                android:layout_weight="4"
+                android:layout_weight="9"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Name" />
+                android:text="Name"
+                android:layout_width="wrap_content" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="10dp">
-
-            <TextView
-                android:id="@+id/addNewDescTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:contentDescription="add new description title"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="Description:"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/addNewDescEdit"
-                android:layout_width="276dp"
-                android:layout_height="67dp"
-                android:layout_weight="4"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Description" />
-        </LinearLayout>
+        <EditText
+            android:id="@+id/addNewDescEdit"
+            android:layout_width="280dp"
+            android:layout_height="67dp"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Description" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="10dp">
+            android:paddingHorizontal="2dp">
 
             <TextView
                 android:id="@+id/addNewDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="1"
                 android:contentDescription="add new description title"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="Date:"
@@ -95,9 +79,9 @@
 
             <EditText
                 android:id="@+id/addNewDateEdit"
-                android:layout_width="276dp"
+                android:layout_width="156dp"
                 android:layout_height="67dp"
-                android:layout_weight="4"
+                android:layout_weight="8"
                 android:ems="10"
                 android:inputType="text"
                 android:text="Choose a date" />
@@ -107,10 +91,53 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="3"
+                android:layout_weight="1"
                 android:contentDescription="date button"
                 android:src="@android:drawable/ic_menu_my_calendar" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="2dp">
+
+            <TextView
+                android:id="@+id/addNewTimeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="add new time title"
+                android:gravity="center_horizontal|center_vertical"
+                android:singleLine="false"
+                android:text="Time:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/addNewTimeEditField"
+                android:layout_width="150dp"
+                android:layout_height="67dp"
+                android:layout_weight="8"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Choose a time" />
+
+            <ImageButton
+                android:id="@+id/addNewTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:contentDescription="time button"
+                android:src="@android:drawable/ic_menu_my_calendar" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addNewScheduleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Schedule" />
 
     </LinearLayout>
 
