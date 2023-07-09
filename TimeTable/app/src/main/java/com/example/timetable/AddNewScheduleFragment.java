@@ -95,7 +95,7 @@ public class AddNewScheduleFragment extends DialogFragment {
 
                         //ref:https://javarevisited.blogspot.com/2013/02/add-leading-zeros-to-integers-Java-String-left-padding-example-program.html#:~:text=The%20format()%20method%20of,is%20used%20to%20print%20integers.
                         //ref:https://www.javatpoint.com/java-string-format
-                        timeEditText.setText(String.format("%02d:%02d",selectedHour,selectedMinute));
+                        timeEditText.setText(StringFormatHelper.GetTime(selectedHour, selectedMinute));
                     }
                 }, hour, minute, true);
                 timePicker.setTitle("Select Time");
