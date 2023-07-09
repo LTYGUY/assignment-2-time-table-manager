@@ -32,6 +32,12 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
+
+        //just need to run this once for initialising
+        //Load up all the managers this application will use
+        new AllManagers();
+
+        AllManagers.NavigationManager.SetMainScreen(this);
     }
 
     private void initWidgets()

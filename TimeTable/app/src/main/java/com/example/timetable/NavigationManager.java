@@ -27,6 +27,11 @@ public class NavigationManager {
         activitiesFromBeginning.add(latestActivity);
     }
 
+    public void GoToMainActivity()
+    {
+        GoToActivity(mainActivity.getClass());
+    }
+
     public void GoToActivity(Class activityClass)
     {
         //if trying to go same activity, will do nothing

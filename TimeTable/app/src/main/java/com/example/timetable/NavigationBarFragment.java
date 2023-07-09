@@ -39,7 +39,7 @@ public class NavigationBarFragment extends Fragment {
         mainScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AllManagers.NavigationManager.GoToActivity(MainActivity.class);
+                AllManagers.NavigationManager.GoToMainActivity();
             }
         });
 
