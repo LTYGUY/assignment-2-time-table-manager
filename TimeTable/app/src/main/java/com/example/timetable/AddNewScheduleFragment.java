@@ -2,6 +2,7 @@
 
 package com.example.timetable;
 
+import android.app.TimePickerDialog;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
@@ -16,13 +17,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class AddNewScheduleFragment extends DialogFragment {
-    final Calendar calendar = Calendar.getInstance();
-    EditText calendarEditText;
+    Calendar calendar = Calendar.getInstance();
+    EditText dateEditText;
+    EditText timeEditText;
 
     public AddNewScheduleFragment() {
         // Required empty public constructor
@@ -41,7 +44,8 @@ public class AddNewScheduleFragment extends DialogFragment {
 
 
 
-        calendarEditText = v.findViewById(R.id.addNewDateEdit);
+        dateEditText = v.findViewById(R.id.addNewDateEdit);
+        timeEditText = v.findViewById(R.id.addNewTimeEditField);
         ImageButton chooseDateBtn = (ImageButton)v.findViewById(R.id.addNewDateButton);
         ImageButton chooseTimeBtn = (ImageButton)v.findViewById(R.id.addNewTimeButton);
         Button addScheduleBtn = (Button)v.findViewById(R.id.addNewScheduleButton);
@@ -55,7 +59,7 @@ public class AddNewScheduleFragment extends DialogFragment {
 
                 String format = "MM/dd/yy";
                 SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.US);
-                calendarEditText.setText(dateFormat.format(calendar.getTime()));
+                dateEditText.setText(dateFormat.format(calendar.getTime()));
             }
         };
 
@@ -63,6 +67,8 @@ public class AddNewScheduleFragment extends DialogFragment {
         chooseDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                calendar = Calendar.getInstance();
+
                 new DatePickerDialog(getContext(),
                         date,
                         calendar.get(java.util.Calendar.YEAR),
@@ -72,9 +78,25 @@ public class AddNewScheduleFragment extends DialogFragment {
             }
         });
 
+        //ref:https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
         chooseTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                calendar = Calendar.getInstance();
+
+                int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(java.util.Calendar.MINUTE);
+
+                TimePickerDialog timePicker;
+                timePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener()
+                {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timeEditText.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                timePicker.setTitle("Select Time");
+                timePicker.show();
             }
         });
 
