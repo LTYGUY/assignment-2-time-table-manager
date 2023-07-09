@@ -31,6 +31,18 @@ public class AddNewScheduleFragment extends DialogFragment {
     EditText dateEditText;
     EditText timeEditText;
 
+    //can use these to grab text directly from EditText
+    private String getNameEditTextValue(){
+        return nameEditText.getText().toString();
+    }
+    private String getDescriptionEditTextValue(){
+        return descriptionEditText.getText().toString();
+    }
+    //can expect that these values are accurate,
+    // as i will assign string value to this first, then onto setText() of their EditText
+    String dateEditTextValue;
+    String timeEditTextValue;
+
     public AddNewScheduleFragment() {
         // Required empty public constructor
     }
@@ -69,7 +81,9 @@ public class AddNewScheduleFragment extends DialogFragment {
 
                 String format = "MM/dd/yy";
                 SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.US);
-                dateEditText.setText(dateFormat.format(calendar.getTime()));
+
+                dateEditTextValue = dateFormat.format(calendar.getTime());
+                dateEditText.setText(dateEditTextValue);
             }
         };
 
@@ -105,7 +119,9 @@ public class AddNewScheduleFragment extends DialogFragment {
 
                         //ref:https://javarevisited.blogspot.com/2013/02/add-leading-zeros-to-integers-Java-String-left-padding-example-program.html#:~:text=The%20format()%20method%20of,is%20used%20to%20print%20integers.
                         //ref:https://www.javatpoint.com/java-string-format
-                        timeEditText.setText(StringFormatHelper.GetTime(selectedHour, selectedMinute));
+
+                        timeEditTextValue = StringFormatHelper.GetTime(selectedHour, selectedMinute);
+                        timeEditText.setText(timeEditTextValue);
                     }
                 }, hour, minute, true);
                 timePicker.setTitle("Select Time");
