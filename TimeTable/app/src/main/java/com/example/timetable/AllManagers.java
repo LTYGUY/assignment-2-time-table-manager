@@ -7,8 +7,6 @@ public class AllManagers {
     //no point making it non static, need to write one more '.Instance'.
     public static NavigationManager NavigationManager;
 
-    public static final String TIME_FORMAT = "%02/%02";
-
     public AllManagers(){
         if (Instance != null)
             return;

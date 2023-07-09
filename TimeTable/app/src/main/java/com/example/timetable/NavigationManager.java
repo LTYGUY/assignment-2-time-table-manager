@@ -41,6 +41,8 @@ public class NavigationManager {
         currentActivity.startActivity(new Intent(currentActivity, activityClass));
     }
 
+    //Basically to close current activity, and return to previous activity.
+    //Treat it like pressing the back button in web browser
     public void CloseCurrentActivity()
     {
         currentActivity.finish();
