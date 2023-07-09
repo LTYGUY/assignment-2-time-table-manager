@@ -8,6 +8,12 @@
     tools:context=".CalendarActivity"
     android:orientation="vertical">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/headerContainerView"
+        android:name="com.example.timetable.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,10 +27,11 @@
             android:layout_weight="1"
             android:background="@null"
             android:onClick="previousMonthAction"
-            android:text="PREV"
+            android:text="Prev"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginStart="15dp" />
 
         <TextView
             android:id="@+id/monthYearTV"
@@ -42,10 +49,11 @@
             android:layout_weight="1"
             android:background="@null"
             android:onClick="nextMonthAction"
-            android:text="NEXT"
+            android:text="Next"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginEnd="15dp"/>
 
     </LinearLayout>
 
@@ -58,8 +66,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SUN"
-            android:textColor="#8080"
+            android:text="Sun"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -67,8 +75,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="MON"
-            android:textColor="#8080"
+            android:text="Mon"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -76,8 +84,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TUE"
-            android:textColor="#8080"
+            android:text="Tue"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -85,8 +93,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="WED"
-            android:textColor="#8080"
+            android:text="Wed"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -94,8 +102,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="THUR"
-            android:textColor="#8080"
+            android:text="Thu"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -103,8 +111,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="FRI"
-            android:textColor="#8080"
+            android:text="Fri"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -112,24 +120,24 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SAT"
-            android:textColor="#8080"
+            android:text="Sat"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
 
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="580dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
         android:name="com.example.timetable.NavigationBarFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="50dp" />
 
 </LinearLayout>

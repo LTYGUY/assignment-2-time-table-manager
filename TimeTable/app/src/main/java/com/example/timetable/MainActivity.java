@@ -17,6 +17,6 @@ public class MainActivity extends AppCompatActivity {
         //Load up all the managers this application will use
         new AllManagers();
 
-        AllManagers.NavigationManager.SetMainScreen(this);
+        //AllManagers.NavigationManager.SetMainScreen(this);
     }
 }

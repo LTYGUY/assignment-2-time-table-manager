@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/header_background_color"
+    tools:context=".HeaderFragment">
+
+    <TextView
+        android:id="@+id/headerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="16dp"
+        android:paddingStart="10dp"
+        android:text="Timely Table"
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:textColor="@color/white" />
+
+</FrameLayout>
