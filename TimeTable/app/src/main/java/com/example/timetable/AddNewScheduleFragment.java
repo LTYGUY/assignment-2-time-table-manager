@@ -24,6 +24,10 @@ import java.util.Locale;
 
 public class AddNewScheduleFragment extends DialogFragment {
     Calendar calendar = Calendar.getInstance();
+
+    EditText nameEditText;
+    EditText descriptionEditText;
+
     EditText dateEditText;
     EditText timeEditText;
 
@@ -43,12 +47,16 @@ public class AddNewScheduleFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_add_new_schedule, container, false);
 
 
-
+        nameEditText = v.findViewById(R.id.addNewNameEdit);
+        descriptionEditText = v.findViewById(R.id.addNewDescEdit);
         dateEditText = v.findViewById(R.id.addNewDateEdit);
         timeEditText = v.findViewById(R.id.addNewTimeEditField);
         ImageButton chooseDateBtn = (ImageButton)v.findViewById(R.id.addNewDateButton);
         ImageButton chooseTimeBtn = (ImageButton)v.findViewById(R.id.addNewTimeButton);
         Button addScheduleBtn = (Button)v.findViewById(R.id.addNewScheduleButton);
+
+        nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
+        descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener(){
             @Override
