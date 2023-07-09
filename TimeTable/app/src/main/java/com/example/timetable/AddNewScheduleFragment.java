@@ -57,6 +57,8 @@ public class AddNewScheduleFragment extends DialogFragment {
 
         nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
         descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
+        dateEditText.setOnFocusChangeListener(EditTextHelper.DateClearOnFirstTap(dateEditText));
+        timeEditText.setOnFocusChangeListener(EditTextHelper.TimeClearOnFirstTap(timeEditText));
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener(){
             @Override

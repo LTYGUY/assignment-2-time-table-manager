@@ -17,21 +17,31 @@ public class NavigationManager {
 
     public void SetMainScreen(Activity main)
     {
+        //Don't allow SetMainScreen to happen twice, meant for the first actual main screen.
+        if (mainActivity != null)
+            return;
+
         mainActivity = main;
         OpenedActivity(mainActivity);
     }
 
+    //To be called in onCreate of activities.
+    // Keep track of what activities has opened.
     public void OpenedActivity(Activity latestActivity)
     {
         currentActivity = latestActivity;
         activitiesFromBeginning.add(latestActivity);
     }
 
+    //NOT MainActivity.java
+    //Go to the main activity that was set by SetMainScreen()
     public void GoToMainActivity()
     {
         GoToActivity(mainActivity.getClass());
     }
 
+    //Go to specified activity class,
+    //with a prevention of starting same as current activity.
     public void GoToActivity(Class activityClass)
     {
         //if trying to go same activity, will do nothing
