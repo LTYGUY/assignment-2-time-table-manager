@@ -47,7 +47,7 @@ public class NavigationBarFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AddNewScheduleFragment frag = new AddNewScheduleFragment();
-                frag.show(getChildFragmentManager(), "");
+                frag.show(getParentFragmentManager(), "");
             }
         });
 

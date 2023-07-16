@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import android.app.DatePickerDialog;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -132,6 +134,15 @@ public class AddNewScheduleFragment extends DialogFragment {
         addScheduleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
+//                        getDescriptionEditTextValue(),
+//                        dateEditTextValue,
+//                        timeEditTextValue);
+
+                dismiss();
+
+                AllManagers.Instance.MakeToast("Successfully added schedule!");
             }
         });
 

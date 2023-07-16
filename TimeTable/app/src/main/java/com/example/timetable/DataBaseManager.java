@@ -35,7 +35,7 @@ public class DataBaseManager {
     {
         //Easier to read
         String query = String.format("INSERT INTO " + SCHEDULE_TABLE +
-                " (name, description, date, time) VALUES ('{0}', '{1}, '{2}', '{3}');", name, description, date, time);
+                " (name, description, date, time) VALUES ('%s', '%s', '%s', '%s');", name, description, date, time);
 
         Log.i("insertSchedule() = ", query);
         db.execSQL(query);

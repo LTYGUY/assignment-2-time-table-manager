@@ -5,8 +5,10 @@ package com.example.timetable;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.Toast;
 
 import java.util.Stack;
+import java.util.concurrent.Callable;
 
 public class NavigationManager {
     private Activity mainActivity = null;
@@ -14,6 +16,8 @@ public class NavigationManager {
 
     //represents how the activities are layered on top of one another
     private Stack<Activity> activitiesFromBeginning = new Stack<Activity>();
+
+    private Callable<Void> allManagersOnClosedActivity = null;
 
     public void SetMainScreen(Activity main)
     {
@@ -59,5 +63,8 @@ public class NavigationManager {
         activitiesFromBeginning.pop();
 
         currentActivity = activitiesFromBeginning.peek();
+
+        //Let AllManagers update its currentActivity
+        AllManagers.Instance.ClosedActivity(currentActivity);
     }
 }
