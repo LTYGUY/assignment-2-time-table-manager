@@ -22,6 +22,7 @@ public class AllManagers {
         DataBaseManager = new DataBaseManager(startingActivity);
     }
 
+    //Should be called in the beginnings of new Activity(s)
     //Some managers may want to do something, when an activity opens
     public void OpenedActivity(Activity latestActivity) {
         NavigationManager.OpenedActivity(latestActivity);
