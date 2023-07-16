@@ -22,7 +22,7 @@ public class AllManagers {
 
         Instance = this;
         currentActivity = startingActivity;
-        
+
         NavigationManager = new NavigationManager();
         NavigationManager.SetMainScreen(startingActivity);
 

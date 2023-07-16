@@ -1,3 +1,4 @@
+//Written By: Ting Ying
 package com.example.timetable;
 
 import android.app.DownloadManager;
@@ -6,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DataBaseManager {
     private SQLiteDatabase db;
@@ -47,8 +50,34 @@ public class DataBaseManager {
         return db.delete(SCHEDULE_TABLE, TABLE_ROW_ID + "=" + scheduleId, null) > 0;
     }
 
+    //returns ArrayList<ScheduleRow> and log all schedules
+    public ArrayList<ScheduleRow> getAndLogAllSchedule(){
+        ArrayList<ScheduleRow> list = AllManagers.DataBaseManager.getAllSchedule();
+
+        //the tag can be anything you want
+        for(int i = 0; i < list.size(); i++)
+            Log.i("DEBUG", list.get(i).toString());
+
+        return list;
+    }
+
+    //Get an entire list of all schedules
+    public ArrayList<ScheduleRow> getAllSchedule(){
+        Cursor cursor = AllManagers.DataBaseManager.selectAllSchedule();
+        ArrayList<ScheduleRow> list = new ArrayList<>();
+        while(cursor.moveToNext())
+        {
+            list.add(new ScheduleRow(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4)));
+        }
+        return list;
+    }
+
     // select all schedules
-    public Cursor selectAllSchedule(){
+    private Cursor selectAllSchedule(){
         Cursor c = db.rawQuery("SELECT * from " + SCHEDULE_TABLE, null);
         return c;
     }

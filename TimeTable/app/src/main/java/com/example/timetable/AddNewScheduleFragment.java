@@ -3,6 +3,7 @@
 package com.example.timetable;
 
 import android.app.TimePickerDialog;
+import android.database.Cursor;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class AddNewScheduleFragment extends DialogFragment {
@@ -134,12 +136,15 @@ public class AddNewScheduleFragment extends DialogFragment {
         addScheduleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
+                        getDescriptionEditTextValue(),
+                        dateEditTextValue,
+                        timeEditTextValue);
 
-//                AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
-//                        getDescriptionEditTextValue(),
-//                        dateEditTextValue,
-//                        timeEditTextValue);
+                //returns ArrayList<ScheduleRow> and log all schedules
+                AllManagers.DataBaseManager.getAndLogAllSchedule();
 
+                //Closes the DialogFragment
                 dismiss();
 
                 AllManagers.Instance.MakeToast("Successfully added schedule!");

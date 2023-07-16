@@ -1,3 +1,4 @@
+//Written by: Ting Ying
 package com.example.timetable;
 
 //SQLite query helper
