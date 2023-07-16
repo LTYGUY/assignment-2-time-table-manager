@@ -44,6 +44,21 @@ public class DataBaseManager {
         db.execSQL(query);
     }
 
+    public ScheduleRow getScheduleRowById(int scheduleID)
+    {
+        String query = QueryHelper.SelectWhereInt(SCHEDULE_TABLE, TABLE_ROW_ID, scheduleID);
+
+        Log.i("getScheduleRowById()=", query);
+        Cursor c = db.rawQuery(query, null);
+
+        if(c.moveToFirst())
+        {
+            return new ScheduleRow(c);
+        }
+
+        return null;
+    }
+
     public boolean deleteSchedule(int scheduleId)
     {
         Log.i("deleteSchedule() = ", TABLE_ROW_ID + "=" + scheduleId);
@@ -65,15 +80,11 @@ public class DataBaseManager {
 
     //Get an entire list of all schedules
     public ArrayList<ScheduleRow> getAllSchedule(){
-        Cursor cursor = AllManagers.DataBaseManager.selectAllSchedule();
+        Cursor cursor = selectAllSchedule();
         ArrayList<ScheduleRow> list = new ArrayList<>();
         while(cursor.moveToNext())
         {
-            list.add(new ScheduleRow(cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4)));
+            list.add(new ScheduleRow(cursor));
         }
         return list;
     }

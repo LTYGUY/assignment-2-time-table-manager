@@ -10,6 +10,12 @@ public class QueryHelper {
         return "create table " + tableName + " (" + columnsToCreate + ");";
     }
 
+    //Select helper
+    public static String SelectWhereInt(String tableName, String columnName, int integer)
+    {
+        return "SELECT * FROM " + tableName + " WHERE " + columnName + "=" + integer + ";";
+    }
+
     //All these functions will have 1 space bar in-front.
     public static String PrimaryIncrementKeyPhrase(String idName){
         return " " + idName + " integer primary key autoincrement not null";
