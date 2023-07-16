@@ -46,8 +46,10 @@ public class DataBaseManager {
 
     public boolean deleteSchedule(int scheduleId)
     {
+        Log.i("deleteSchedule() = ", TABLE_ROW_ID + "=" + scheduleId);
         //ref:https://stackoverflow.com/questions/7510219/deleting-row-in-sqlite-in-android
-        return db.delete(SCHEDULE_TABLE, TABLE_ROW_ID + "=" + scheduleId, null) > 0;
+        boolean deleteSuccessful = db.delete(SCHEDULE_TABLE, TABLE_ROW_ID + "=" + scheduleId, null) > 0;
+        return deleteSuccessful;
     }
 
     //returns ArrayList<ScheduleRow> and log all schedules
