@@ -35,6 +35,6 @@ public class ScheduleRow {
                 + ", Name: " + Name
                 + ", Description: " + Description
                 + ", Date: " + Date
-                + ", " + Time;
+                + ", Time: " + Time;
     }
 }

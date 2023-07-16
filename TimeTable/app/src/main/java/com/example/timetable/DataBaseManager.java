@@ -2,6 +2,7 @@
 package com.example.timetable;
 
 import android.app.DownloadManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -58,6 +59,33 @@ public class DataBaseManager {
 
         return null;
     }
+
+
+    //Overload method. update schedule row by given id
+    public void updateScheduleRowById(int scheduleId,
+                                      String name,
+                                      String description,
+                                      String date,
+                                      String time)
+    {
+        updateScheduleRowById(new ScheduleRow(scheduleId,name,description,date,time));
+    }
+
+    //Update schedule row by given ScheduleRow, by its ScheduleId
+    public void updateScheduleRowById(ScheduleRow row)
+    {
+        //ref:https://stackoverflow.com/questions/9798473/sqlite-in-android-how-to-update-a-specific-row
+        ContentValues cv = new ContentValues();
+        cv.put(SCHEDULE_ROW_NAME, row.Name);
+        cv.put(SCHEDULE_ROW_DESCRIPTION, row.Description);
+        cv.put(SCHEDULE_ROW_DATE, row.Date);
+        cv.put(SCHEDULE_ROW_TIME, row.Time);
+
+        Log.i("updateScheduleRowById()=", row.toString());
+
+        db.update(SCHEDULE_TABLE, cv,TABLE_ROW_ID+"="+row.ScheduleId,null);
+    }
+
 
     public boolean deleteSchedule(int scheduleId)
     {
