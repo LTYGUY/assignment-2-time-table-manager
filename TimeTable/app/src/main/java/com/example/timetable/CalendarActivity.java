@@ -4,6 +4,8 @@ package com.example.timetable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
@@ -44,12 +47,12 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         monthYearText = findViewById(R.id.monthYearTV);
     }
 
-    private void setMonthView()
-    {
+    private void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
+        ArrayList events = getEventDates(this);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this, events, selectedDate);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -105,5 +108,22 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
             String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
+    }
+
+    public ArrayList<String> getEventDates(Context context) {
+        ArrayList<String> eventDates = new ArrayList<>();
+
+        DataBaseManager dbManager = new DataBaseManager(context);
+        Cursor cursor = dbManager.selectAllSchedule();
+
+        // The column index of the date in the table
+        int dateColumnIndex = cursor.getColumnIndex(DataBaseManager.SCHEDULE_ROW_DATE);
+
+        while (cursor.moveToNext()) {
+            String date = cursor.getString(dateColumnIndex);
+            eventDates.add(date);
+        }
+        cursor.close();
+        return eventDates;
     }
 }

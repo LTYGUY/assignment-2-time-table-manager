@@ -1,7 +1,6 @@
 //Written By: Ting Ying
 package com.example.timetable;
 
-import android.app.DownloadManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -21,7 +20,7 @@ public class DataBaseManager {
     private static final String SCHEDULE_TABLE = "schedule_table";
     private static final String SCHEDULE_ROW_NAME = "name";
     private static final String SCHEDULE_ROW_DESCRIPTION = "description";
-    private static final String SCHEDULE_ROW_DATE = "date";
+    public static final String SCHEDULE_ROW_DATE = "date";
     private static final String SCHEDULE_ROW_TIME = "time";
 
     public DataBaseManager(Context context) {
@@ -118,7 +117,7 @@ public class DataBaseManager {
     }
 
     // select all schedules
-    private Cursor selectAllSchedule(){
+    Cursor selectAllSchedule(){
         Cursor c = db.rawQuery("SELECT * from " + SCHEDULE_TABLE, null);
         return c;
     }

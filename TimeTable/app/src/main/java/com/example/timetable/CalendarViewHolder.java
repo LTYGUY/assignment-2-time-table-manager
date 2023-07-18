@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
@@ -24,10 +25,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     @Override
     public void onClick(View view)
     {
-        //onItemListener.onItemClick(getAdapterPosition(), (String) dayOfMonth.getText());
         Intent intent = new Intent(view.getContext(), ListViewActivity.class);
-        //String day = (String) dayOfMonth.getText();
-        //intent.putExtra("dayOfMonth", day);
         view.getContext().startActivity(intent);
     }
 }

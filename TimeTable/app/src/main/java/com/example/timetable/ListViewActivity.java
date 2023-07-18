@@ -11,7 +11,7 @@ public class ListViewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calendar_date_listview);
+        setContentView(R.layout.activity_schedule_listview);
 
         // Get ListView from XML layout
         ListView listView = findViewById(R.id.list_view);
