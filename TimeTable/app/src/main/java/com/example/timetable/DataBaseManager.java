@@ -145,22 +145,40 @@ public class DataBaseManager {
         db.execSQL(query);
     }
 
+    //create schedule table. Can also change it to public, just to call it once to create the table into the database
+    // also useful if you dropped the table.
+    private void createScheduleTable()
+    {
+        //if table already exists, don't do anything
+        if (tableExists(SCHEDULE_TABLE))
+            return;
+
+        String newScheduleTable = QueryHelper.CreateTable(SCHEDULE_TABLE,
+                QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
+                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
+                        + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
+                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
+                        + QueryHelper.TextNotNull(SCHEDULE_ROW_TIME));
+
+        db.execSQL(newScheduleTable);
+    }
+
     //Checks if the specified name if the table exists in the database
     private boolean tableExists(String tableName)
     {
         //ref:https://gist.github.com/ruslan-hut/389134bc0bd3cbbbc783c41f430b00ff
-        int count = 0;
 
         String query = "SELECT name FROM sqlite_master WHERE type='table' AND name='"+ tableName +"';";
         Log.i("tableExists() = ", query);
         Cursor cursor = db.rawQuery(query,null);
+        boolean tableExist = false;
         if(cursor.moveToFirst())
         {
-            count = cursor.getInt(0);
+            tableExist = true;
         }
         cursor.close();
 
-        return count > 0;
+        return tableExist;
     }
 
     // This class is created when our DataManager is initialized
@@ -170,16 +188,8 @@ public class DataBaseManager {
         // This method only runs the first time the database is created
         @Override
         public void onCreate(SQLiteDatabase db) {
-
-            // Create schedule_table
-            String newScheduleTable = QueryHelper.CreateTable(SCHEDULE_TABLE,
-                    QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
-                    + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
-                    + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
-                    + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
-                    + QueryHelper.TextNotNull(SCHEDULE_ROW_TIME));
-
-            db.execSQL(newScheduleTable); }
+            createScheduleTable();
+        }
 
         // This method only runs when we increment DB_VERSION
         @Override
