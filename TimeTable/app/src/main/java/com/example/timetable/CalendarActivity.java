@@ -1,4 +1,4 @@
-//Written by: Collin, Ting Ying
+//Written by: Collin, Ting Ying, Lorraine
 
 package com.example.timetable;
 
@@ -19,13 +19,13 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
+    private CalendarAdapter calendarAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,8 +34,13 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         setContentView(R.layout.calendar_activity);
         initWidgets();
         selectedDate = LocalDate.now();
-        setMonthView();
+        calendarAdapter = new CalendarAdapter(new ArrayList<>(), this, new ArrayList<>(), selectedDate); // Create the adapter here
 
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7); // Set the layout manager here
+        calendarRecyclerView.setLayoutManager(layoutManager);
+        calendarRecyclerView.setAdapter(calendarAdapter);
+
+        setMonthView();
         //just need to run this once for initialising
         //Load up all the managers this application will use
         new AllManagers(this);
@@ -47,15 +52,13 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         monthYearText = findViewById(R.id.monthYearTV);
     }
 
-    private void setMonthView() {
+    void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
         ArrayList events = getEventDates(this);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this, events, selectedDate);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
-        calendarRecyclerView.setLayoutManager(layoutManager);
-        calendarRecyclerView.setAdapter(calendarAdapter);
+        //Update the adapter's data instead of creating a new adapter every time month view is set.
+        calendarAdapter.updateData(daysInMonth, events, selectedDate);
     }
 
     private ArrayList<String> daysInMonthArray(LocalDate date)

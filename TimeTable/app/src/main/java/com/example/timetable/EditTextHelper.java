@@ -2,7 +2,6 @@
 
 package com.example.timetable;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 

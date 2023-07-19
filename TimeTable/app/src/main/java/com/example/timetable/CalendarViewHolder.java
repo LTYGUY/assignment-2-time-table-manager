@@ -1,4 +1,4 @@
-//Written by: Collin, Ting Ying, Lorraine
+//Written by: Collin, Ting Ying
 
 package com.example.timetable;
 
@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener

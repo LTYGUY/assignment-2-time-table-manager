@@ -1,34 +1,39 @@
-//Written by: Collin, Ting Ying
+//Written by: Collin, Ting Ying, Lorraine
 
 package com.example.timetable;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 {
-    private final ArrayList<String> daysOfMonth;
+    private ArrayList<String> daysOfMonth;
     private final OnItemListener onItemListener;
-    private final ArrayList events;
+    private ArrayList events;
     private LocalDate selectedDate;
+
     public CalendarAdapter(ArrayList<String> daysOfMonth, OnItemListener onItemListener, ArrayList events, LocalDate selectedDate)
     {
         this.daysOfMonth = daysOfMonth;
         this.onItemListener = onItemListener;
         this.events = events;
         this.selectedDate = selectedDate;
+    }
+
+    public void updateData(ArrayList<String> daysOfMonth, ArrayList events, LocalDate selectedDate) {
+        this.daysOfMonth = daysOfMonth;
+        this.events = events;
+        this.selectedDate = selectedDate;
+        notifyDataSetChanged(); // Notify the RecyclerView to update
     }
 
     @NonNull

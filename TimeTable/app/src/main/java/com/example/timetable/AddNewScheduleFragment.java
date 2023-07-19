@@ -1,17 +1,14 @@
-//Written by: Ting Ying
+//Written by: Ting Ying, Lorraine
 
 package com.example.timetable;
 
 import android.app.TimePickerDialog;
-import android.database.Cursor;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import android.app.DatePickerDialog;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +17,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 
 public class AddNewScheduleFragment extends DialogFragment {
     Calendar calendar = Calendar.getInstance();
-
     EditText nameEditText;
     EditText descriptionEditText;
-
     EditText dateEditText;
     EditText timeEditText;
 
@@ -42,7 +35,7 @@ public class AddNewScheduleFragment extends DialogFragment {
     private String getDescriptionEditTextValue(){
         return descriptionEditText.getText().toString();
     }
-    //can expect that these values are accurate,
+    // can expect that these values are accurate,
     // as i will assign string value to this first, then onto setText() of their EditText
     String dateEditTextValue;
     String timeEditTextValue;
@@ -58,30 +51,38 @@ public class AddNewScheduleFragment extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_new_schedule, container, false);
 
+        setupEditTexts(v);
+        setupDateButton(v);
+        setupTimeButton(v);
+        setupAddScheduleButton(v);
 
+        return v;
+    }
+
+    private void setupEditTexts(View v) {
         nameEditText = v.findViewById(R.id.addNewNameEdit);
         descriptionEditText = v.findViewById(R.id.addNewDescEdit);
         dateEditText = v.findViewById(R.id.addNewDateEdit);
         timeEditText = v.findViewById(R.id.addNewTimeEditField);
-        ImageButton chooseDateBtn = (ImageButton)v.findViewById(R.id.addNewDateButton);
-        ImageButton chooseTimeBtn = (ImageButton)v.findViewById(R.id.addNewTimeButton);
-        Button addScheduleBtn = (Button)v.findViewById(R.id.addNewScheduleButton);
 
         nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
         descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
         dateEditText.setOnFocusChangeListener(EditTextHelper.DateClearOnFirstTap(dateEditText));
         timeEditText.setOnFocusChangeListener(EditTextHelper.TimeClearOnFirstTap(timeEditText));
+    }
 
-        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener(){
+    private void setupDateButton(View v) {
+        ImageButton chooseDateBtn = (ImageButton) v.findViewById(R.id.addNewDateButton);
+
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int day){
+            public void onDateSet(DatePicker view, int year, int month, int day) {
                 calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH,month);
-                calendar.set(Calendar.DAY_OF_MONTH,day);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
 
                 String format = "MM/dd/yy";
                 SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.US);
@@ -91,67 +92,57 @@ public class AddNewScheduleFragment extends DialogFragment {
             }
         };
 
-        //ref:https://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext
-        chooseDateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calendar = Calendar.getInstance();
+        chooseDateBtn.setOnClickListener(view -> {
+            calendar = Calendar.getInstance();
+            new DatePickerDialog(getContext(), date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
+    }
 
-                new DatePickerDialog(getContext(),
-                        date,
-                        calendar.get(java.util.Calendar.YEAR),
-                        calendar.get(java.util.Calendar.MONTH),
-                        calendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
+    private void setupTimeButton(View v) {
+        ImageButton chooseTimeBtn = (ImageButton) v.findViewById(R.id.addNewTimeButton);
 
+        chooseTimeBtn.setOnClickListener(view -> {
+            calendar = Calendar.getInstance();
+
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+
+            TimePickerDialog timePicker = new TimePickerDialog(getContext(), (timePickerView, selectedHour, selectedMinute) -> {
+                timeEditTextValue = StringFormatHelper.GetTime(selectedHour, selectedMinute);
+                timeEditText.setText(timeEditTextValue);
+            }, hour, minute, true);
+            timePicker.setTitle("Select Time");
+            timePicker.show();
+        });
+    }
+
+    private void setupAddScheduleButton(View v) {
+        Button addScheduleBtn = (Button) v.findViewById(R.id.addNewScheduleButton);
+
+        addScheduleBtn.setOnClickListener(view -> {
+            AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
+                    getDescriptionEditTextValue(),
+                    dateEditTextValue,
+                    timeEditTextValue);
+
+            AllManagers.DataBaseManager.getAndLogAllSchedule();
+
+            dismiss();
+
+            AllManagers.Instance.MakeToast("Successfully added schedule!");
+
+            if (onScheduleAddedListener != null) {
+                onScheduleAddedListener.onScheduleAdded();
             }
         });
+    }
 
-        //ref:https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        chooseTimeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calendar = Calendar.getInstance();
+    public interface OnScheduleAddedListener {
+        void onScheduleAdded();
+    }
+    private OnScheduleAddedListener onScheduleAddedListener;
 
-                int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(java.util.Calendar.MINUTE);
-
-                TimePickerDialog timePicker;
-                timePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener()
-                {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-
-                        //ref:https://javarevisited.blogspot.com/2013/02/add-leading-zeros-to-integers-Java-String-left-padding-example-program.html#:~:text=The%20format()%20method%20of,is%20used%20to%20print%20integers.
-                        //ref:https://www.javatpoint.com/java-string-format
-
-                        timeEditTextValue = StringFormatHelper.GetTime(selectedHour, selectedMinute);
-                        timeEditText.setText(timeEditTextValue);
-                    }
-                }, hour, minute, true);
-                timePicker.setTitle("Select Time");
-                timePicker.show();
-            }
-        });
-
-        addScheduleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
-                        getDescriptionEditTextValue(),
-                        dateEditTextValue,
-                        timeEditTextValue);
-
-                //returns ArrayList<ScheduleRow> and log all schedules
-                AllManagers.DataBaseManager.getAndLogAllSchedule();
-
-                //Closes the DialogFragment
-                dismiss();
-
-                AllManagers.Instance.MakeToast("Successfully added schedule!");
-            }
-        });
-
-        // Inflate the layout for this fragment
-        return v;
+    public void setOnScheduleAddedListener(OnScheduleAddedListener onScheduleAddedListener) {
+        this.onScheduleAddedListener = onScheduleAddedListener;
     }
 }

@@ -5,7 +5,6 @@ package com.example.timetable;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Toast;
 
 import java.util.Stack;
 import java.util.concurrent.Callable;

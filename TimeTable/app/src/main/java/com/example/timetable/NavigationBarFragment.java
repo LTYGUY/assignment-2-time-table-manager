@@ -1,16 +1,12 @@
-//Written by: Ting Ying,
+//Written by: Ting Ying, Lorraine
 
 package com.example.timetable;
 
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class NavigationBarFragment extends Fragment {
@@ -25,40 +21,41 @@ public class NavigationBarFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_navigation_bar, container, false);
 
-        //calendar button in the main navigation bar
-        ImageButton mainScreenButton = (ImageButton)v.findViewById(R.id.mainScreenButton);
-        ImageButton addButton = (ImageButton)v.findViewById(R.id.addButton);
-        ImageButton aboutButton = (ImageButton)v.findViewById(R.id.aboutScreenButton);
+        ImageButton mainScreenButton = v.findViewById(R.id.mainScreenButton);
+        ImageButton addButton = v.findViewById(R.id.addButton);
+        ImageButton aboutButton = v.findViewById(R.id.aboutScreenButton);
 
+        setupMainScreenButton(mainScreenButton);
+        setupAddButton(addButton);
+        setupAboutButton(aboutButton);
 
-        mainScreenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AllManagers.NavigationManager.GoToMainActivity();
-            }
-        });
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddNewScheduleFragment frag = new AddNewScheduleFragment();
-                frag.show(getParentFragmentManager(), "");
-            }
-        });
-
-        aboutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AllManagers.NavigationManager.GoToActivity(AboutActivity.class);
-            }
-        });
-
-        // Inflate the layout for this fragment
         return v;
+    }
+
+    private void setupMainScreenButton(ImageButton mainScreenButton) {
+        mainScreenButton.setOnClickListener(view -> AllManagers.NavigationManager.GoToMainActivity());
+    }
+
+    private void setupAddButton(ImageButton addButton) {
+        addButton.setOnClickListener(view -> {
+            AddNewScheduleFragment frag = new AddNewScheduleFragment();
+            frag.setOnScheduleAddedListener(() -> {
+                // Get the parent activity and cast it to CalendarActivity
+                CalendarActivity calendarActivity = (CalendarActivity) getActivity();
+
+                // Call setMonthView if the cast was successful
+                if (calendarActivity != null) {
+                    calendarActivity.setMonthView();
+                }
+            });
+            frag.show(getParentFragmentManager(), "");
+        });
+    }
+
+    private void setupAboutButton(ImageButton aboutButton) {
+        aboutButton.setOnClickListener(view -> AllManagers.NavigationManager.GoToActivity(AboutActivity.class));
     }
 }
