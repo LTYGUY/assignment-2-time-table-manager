@@ -29,6 +29,7 @@ public class ScheduleActivity extends AppCompatActivity {
         ScheduleAdapter adapter = new ScheduleAdapter(this, scheduleItems);
 
         listView.setAdapter(adapter);
+
     }
 }
 

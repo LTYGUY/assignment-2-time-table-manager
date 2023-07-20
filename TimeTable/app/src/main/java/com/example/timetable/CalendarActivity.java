@@ -113,6 +113,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
             String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
+        else
+        {
+            return;
+        }
     }
 
     public ArrayList<String> getScheduleDates(CalendarActivity calendarActivity) {

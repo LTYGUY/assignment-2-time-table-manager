@@ -25,6 +25,10 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     private String getSelectedDate() {
         String selectedMonth = calendarAdapter.getSelectedMonth();
         String selectedYear = calendarAdapter.getSelectedYear();
+        if (dayOfMonth.getText().toString().equals ("")){
+            return"";
+        }
+
         String selectedDay = String.format("%02d", Integer.parseInt(dayOfMonth.getText().toString()));
         return selectedMonth + "/" + selectedDay + "/" + selectedYear;
     }
@@ -38,6 +42,9 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     @Override
     public void onClick(View view) {
         String selectedDate = getSelectedDate();
+        if (selectedDate.equals("")){
+            return;
+        }
         startScheduleActivity(view, selectedDate);
     }
 }
