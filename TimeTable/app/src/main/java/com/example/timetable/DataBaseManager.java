@@ -192,6 +192,7 @@ public class DataBaseManager {
         // This method only runs the first time the database is created
         @Override
         public void onCreate(SQLiteDatabase db) {
+
             String newScheduleTable = QueryHelper.CreateTable(SCHEDULE_TABLE,
                     QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
                             + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
