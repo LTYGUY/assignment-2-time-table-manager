@@ -192,7 +192,14 @@ public class DataBaseManager {
         // This method only runs the first time the database is created
         @Override
         public void onCreate(SQLiteDatabase db) {
-            createScheduleTable();
+            String newScheduleTable = QueryHelper.CreateTable(SCHEDULE_TABLE,
+                    QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
+                            + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
+                            + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
+                            + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
+                            + QueryHelper.TextNotNull(SCHEDULE_ROW_TIME));
+
+            db.execSQL(newScheduleTable);
         }
 
         // This method only runs when we increment DB_VERSION
