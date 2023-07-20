@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
@@ -19,18 +20,20 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/deleteBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/title"
         android:layout_marginEnd="0dp"
-        android:text="Button" />
+        android:text="Delete"
+        app:cornerRadius="15dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/editBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_toStartOf="@+id/button"
-        android:text="Button" />
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/deleteBtn"
+        android:text="Edit"
+        app:cornerRadius="15dp" />
 </RelativeLayout>

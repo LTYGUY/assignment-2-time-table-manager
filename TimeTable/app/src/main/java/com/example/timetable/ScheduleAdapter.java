@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,6 +28,23 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleRow> {
 
         title.setText(item.Name);
         description.setText(item.Description);
+
+        Button btnEdit = convertView.findViewById((R.id.editBtn));
+        Button btnDelete = convertView.findViewById((R.id.deleteBtn));
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AllManagers.DataBaseManager.deleteSchedule(item.ScheduleId);
+            }
+        });
 
         return convertView;
     }
