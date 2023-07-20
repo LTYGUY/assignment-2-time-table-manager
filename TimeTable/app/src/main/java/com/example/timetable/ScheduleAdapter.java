@@ -49,10 +49,6 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleRow> {
                 int position = (int) v.getTag();
                 ScheduleRow item = getItem(position);
                 AllManagers.DataBaseManager.deleteSchedule(item.ScheduleId);
-                AllManagers.DataBaseManager.deleteSchedule(item.ScheduleId);
-
-                // Now, update the UI by removing the item from the data source
-                // and notifying the adapter about the change.
                 removeItem(position);
                 notifyDataSetChanged();
             }
