@@ -148,7 +148,7 @@ public class AddNewScheduleFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 // Launch the MapActivity to select a location
-                Intent mapIntent = new Intent(getContext(), MapActivity.class);
+                Intent mapIntent = new Intent(getContext(), MapsActivity.class);
                 mapLauncher.launch(mapIntent);
             }
         });
