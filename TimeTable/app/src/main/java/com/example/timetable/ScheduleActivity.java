@@ -1,6 +1,7 @@
 //Written by: Lorraine
 package com.example.timetable;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -17,16 +18,16 @@ public class ScheduleActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.list_view);
 
-        // Get the selected day from the intent extras
-        String selectedDay = getIntent().getStringExtra("SELECTED_DAY");
-        Log.d("ListViewActivity", "Selected day: " + selectedDay);
+        // Retrieve the selected day from the intent
+        Intent intent = getIntent();
+        String selectedDate = intent.getStringExtra("SELECTED_DAY");
 
         DataBaseManager dbManager = new DataBaseManager(this);
-        // Filter the schedules based on the selected day
-        List<ScheduleRow> scheduleItems = dbManager.getScheduleByDate(selectedDay);
-        Log.d("ListViewActivity", "Number of schedule items: " + scheduleItems.size());
+        // Get the schedules for the selected day
+        List<ScheduleRow> scheduleItems = dbManager.getScheduleForDate(selectedDate);
 
         ScheduleAdapter adapter = new ScheduleAdapter(this, scheduleItems);
+
         listView.setAdapter(adapter);
     }
 }

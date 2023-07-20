@@ -17,7 +17,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleRow> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_schedule, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.schedule_listitem, parent, false);
         }
 
         ScheduleRow item = getItem(position);

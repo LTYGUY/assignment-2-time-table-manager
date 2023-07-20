@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -52,7 +51,7 @@ public class AddNewScheduleFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_new_schedule, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_schedule, container, false);
 
         setupEditTexts(v);
         setupDateButton(v);

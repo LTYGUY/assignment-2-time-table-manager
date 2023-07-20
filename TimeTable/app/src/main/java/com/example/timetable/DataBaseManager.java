@@ -202,27 +202,6 @@ public class DataBaseManager {
         }
     }
 
-    public List<ScheduleRow> getScheduleByDate(String date) {
-        ArrayList<ScheduleRow> scheduleItems = new ArrayList<>();
-        Log.d("DataBaseManager", "Fetching schedules for date: " + date);
-
-        Cursor cursor = db.query(SCHEDULE_TABLE, null, SCHEDULE_ROW_DATE + "=?", new String[]{date}, null, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    // Create a new ScheduleRow object for each row in the cursor
-                    // and add it to the list.
-                    ScheduleRow row = new ScheduleRow(cursor);
-                    scheduleItems.add(row);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }
-
-        Log.d("DataBaseManager", "Number of schedules fetched: " + scheduleItems.size());
-        return scheduleItems;
-    }
-
     public ArrayList<String> getScheduleDates() {
         ArrayList<String> scheduleDates = new ArrayList<>();
         Cursor cursor = selectAllSchedule();
@@ -235,5 +214,19 @@ public class DataBaseManager {
         }
         cursor.close();
         return scheduleDates;
+    }
+
+    public List<ScheduleRow> getScheduleForDate(String date){
+        Cursor cursor = db.rawQuery("SELECT * FROM " + SCHEDULE_TABLE + " WHERE Date = ?", new String[]{date});
+        ArrayList<ScheduleRow> list = new ArrayList<>();
+        while(cursor.moveToNext())
+        {
+            list.add(new ScheduleRow(cursor));
+        }
+        cursor.close();
+        // Log the date and the list
+        Log.d("DatabaseManager", "Date: " + date + ", Schedules: " + list.toString());
+
+        return list;
     }
 }

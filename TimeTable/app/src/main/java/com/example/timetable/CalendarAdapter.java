@@ -21,7 +21,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     private ArrayList scheduleDates;
     private LocalDate selectedDate;
 
-    public CalendarAdapter(ArrayList<String> daysOfMonth, OnItemListener onItemListener, ArrayList events, LocalDate selectedDate)
+    public CalendarAdapter(ArrayList<String> daysOfMonth, OnItemListener onItemListener, ArrayList scheduleDates, LocalDate selectedDate)
     {
         this.daysOfMonth = daysOfMonth;
         this.onItemListener = onItemListener;
@@ -36,6 +36,17 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         notifyDataSetChanged(); // Notify the RecyclerView to update
     }
 
+    DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MM");
+    DateTimeFormatter yearFormat = DateTimeFormatter.ofPattern("yy");
+
+    public String getSelectedMonth() {
+        return selectedDate.format(monthFormat);
+    }
+
+    public String getSelectedYear() {
+        return selectedDate.format(yearFormat);
+    }
+
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -44,10 +55,9 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         View view = inflater.inflate(R.layout.calendar_cell, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = (int) (parent.getHeight() * 0.166666666);
-        return new CalendarViewHolder(view, onItemListener);
+        //return new CalendarViewHolder(view, onItemListener);
+        return new CalendarViewHolder(view, onItemListener, this);
     }
-    DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MM");
-    DateTimeFormatter yearFormat = DateTimeFormatter.ofPattern("yy");
 
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
@@ -65,8 +75,8 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     }
 
     private String getDateString(String dayText) {
-        String currentMonth = selectedDate.format(monthFormat); // "MM" format
-        String currentYear = selectedDate.format(yearFormat); // "yyyy" format
+        String currentMonth = selectedDate.format(monthFormat);
+        String currentYear = selectedDate.format(yearFormat);
         String formattedDayText = formatDayText(dayText);
 
         return currentMonth + "/" + formattedDayText + "/" + currentYear;
