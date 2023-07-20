@@ -2,12 +2,11 @@
 
 package com.example.timetable;
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-import android.app.DatePickerDialog;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +16,27 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.fragment.app.DialogFragment;
+import android.app.DatePickerDialog;
+
+import com.google.android.gms.maps.MapView;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+
+
 public class AddNewScheduleFragment extends DialogFragment {
+    private ActivityResultLauncher<Intent> mapLauncher;
+    private static final int REQUEST_CODE_MAP = 1;
     Calendar calendar = Calendar.getInstance();
     EditText nameEditText;
     EditText descriptionEditText;
     EditText dateEditText;
     EditText timeEditText;
+    EditText postalAddressText;
 
     //can use these to grab text directly from EditText
     private String getNameEditTextValue(){
@@ -52,11 +63,28 @@ public class AddNewScheduleFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_schedule, container, false);
+        mapLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // Handle the result from the MapActivity here
+                        Intent data = result.getData();
+                        if (data != null) {
+                            // Get the selected location data from the MapActivity
+                            double latitude = data.getDoubleExtra("latitude", 0);
+                            double longitude = data.getDoubleExtra("longitude", 0);
 
+                            // Do something with the selected location (latitude and longitude)
+                            // For example, update the EditText with the selected location
+                            String selectedLocation = latitude + ", " + longitude;
+                            postalAddressText.setText(selectedLocation);
+                        }
+                    }
+                });
         setupEditTexts(v);
         setupDateButton(v);
         setupTimeButton(v);
         setupAddScheduleButton(v);
+        setupMapButton(v);
 
         return v;
     }
@@ -114,6 +142,18 @@ public class AddNewScheduleFragment extends DialogFragment {
             timePicker.show();
         });
     }
+    private void setupMapButton(View v) {
+        Button mapButton = v.findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch the MapActivity to select a location
+                Intent mapIntent = new Intent(getContext(), MapActivity.class);
+                mapLauncher.launch(mapIntent);
+            }
+        });
+    }
+
 
     private void setupAddScheduleButton(View v) {
         Button addScheduleBtn = (Button) v.findViewById(R.id.addNewScheduleButton);
