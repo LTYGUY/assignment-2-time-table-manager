@@ -140,6 +140,7 @@ public class AddNewScheduleFragment extends DialogFragment {
     public interface OnScheduleAddedListener {
         void onScheduleAdded();
     }
+
     private OnScheduleAddedListener onScheduleAddedListener;
 
     public void setOnScheduleAddedListener(OnScheduleAddedListener onScheduleAddedListener) {

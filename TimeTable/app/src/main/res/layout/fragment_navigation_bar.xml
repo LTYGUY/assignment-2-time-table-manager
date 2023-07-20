@@ -13,12 +13,12 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/mainScreenButton"
+            android:id="@+id/allScheduleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
-            android:contentDescription="main screen button"
+            android:contentDescription="all schedule button"
             android:src="@android:drawable/ic_menu_my_calendar" />
 
         <ImageButton

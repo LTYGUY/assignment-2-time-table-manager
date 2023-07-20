@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseManager {
     private SQLiteDatabase db;
@@ -59,7 +60,6 @@ public class DataBaseManager {
         return null;
     }
 
-
     //Overload method. update schedule row by given id
     public void updateScheduleRowById(int scheduleId,
                                       String name,
@@ -85,6 +85,10 @@ public class DataBaseManager {
         db.update(SCHEDULE_TABLE, cv,TABLE_ROW_ID+"="+row.ScheduleId,null);
     }
 
+    public boolean deleteAllSchedules()
+    {
+        return db.delete(SCHEDULE_TABLE, null, null) > 0;
+    }
 
     public boolean deleteSchedule(int scheduleId)
     {
@@ -196,5 +200,40 @@ public class DataBaseManager {
         public void onUpgrade(SQLiteDatabase db,
                               int oldVersion, int newVersion) {
         }
+    }
+
+    public List<ScheduleRow> getScheduleByDate(String date) {
+        ArrayList<ScheduleRow> scheduleItems = new ArrayList<>();
+        Log.d("DataBaseManager", "Fetching schedules for date: " + date);
+
+        Cursor cursor = db.query(SCHEDULE_TABLE, null, SCHEDULE_ROW_DATE + "=?", new String[]{date}, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    // Create a new ScheduleRow object for each row in the cursor
+                    // and add it to the list.
+                    ScheduleRow row = new ScheduleRow(cursor);
+                    scheduleItems.add(row);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        Log.d("DataBaseManager", "Number of schedules fetched: " + scheduleItems.size());
+        return scheduleItems;
+    }
+
+    public ArrayList<String> getScheduleDates() {
+        ArrayList<String> scheduleDates = new ArrayList<>();
+        Cursor cursor = selectAllSchedule();
+
+        // The column index of the date in the table
+        int dateColumnIndex = cursor.getColumnIndex(SCHEDULE_ROW_DATE);
+        while (cursor.moveToNext()) {
+            String date = cursor.getString(dateColumnIndex);
+            scheduleDates.add(date);
+        }
+        cursor.close();
+        return scheduleDates;
     }
 }

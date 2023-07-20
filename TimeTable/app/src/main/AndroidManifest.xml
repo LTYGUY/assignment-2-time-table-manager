@@ -24,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListViewActivity"></activity>
+        <activity android:name=".ScheduleActivity"></activity>
+        <activity android:name=".AllScheduleActivity"></activity>
     </application>
 
 </manifest>

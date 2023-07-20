@@ -1,4 +1,4 @@
-//Written by: Collin, Ting Ying
+//Written by: Collin, Ting Ying, Lorraine
 
 package com.example.timetable;
 
@@ -22,9 +22,11 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     }
 
     @Override
-    public void onClick(View view)
-    {
-        Intent intent = new Intent(view.getContext(), ListViewActivity.class);
+    public void onClick(View view) {
+        //String selectedDate = selectedMonth + "/" + dayOfMonth.getText().toString() + "/" + selectedYear;
+        //Log.d("CalendarViewHolder", "Date selected: " + selectedDate);
+        Intent intent = new Intent(view.getContext(), ScheduleActivity.class);
+        //intent.putExtra("SELECTED_DAY", selectedDate);
         view.getContext().startActivity(intent);
     }
 }

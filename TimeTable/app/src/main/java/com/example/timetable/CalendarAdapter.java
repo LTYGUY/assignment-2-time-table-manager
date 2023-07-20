@@ -18,20 +18,20 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 {
     private ArrayList<String> daysOfMonth;
     private final OnItemListener onItemListener;
-    private ArrayList events;
+    private ArrayList scheduleDates;
     private LocalDate selectedDate;
 
     public CalendarAdapter(ArrayList<String> daysOfMonth, OnItemListener onItemListener, ArrayList events, LocalDate selectedDate)
     {
         this.daysOfMonth = daysOfMonth;
         this.onItemListener = onItemListener;
-        this.events = events;
+        this.scheduleDates = scheduleDates;
         this.selectedDate = selectedDate;
     }
 
-    public void updateData(ArrayList<String> daysOfMonth, ArrayList events, LocalDate selectedDate) {
+    public void updateData(ArrayList<String> daysOfMonth, ArrayList scheduleDates, LocalDate selectedDate) {
         this.daysOfMonth = daysOfMonth;
-        this.events = events;
+        this.scheduleDates = scheduleDates;
         this.selectedDate = selectedDate;
         notifyDataSetChanged(); // Notify the RecyclerView to update
     }
@@ -56,7 +56,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         if (!dayText.isEmpty()) {
             String dateToCheck = getDateString(dayText);
 
-            if (isEventOnDate(dateToCheck)) {
+            if (isScheduleOnDate(dateToCheck)) {
                 holder.dayOfMonth.setTextColor(Color.RED);
             } else {
                 holder.dayOfMonth.setTextColor(Color.BLACK);
@@ -76,8 +76,8 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         return dayText.length() == 1 ? "0" + dayText : dayText;
     }
 
-    private boolean isEventOnDate(String date) {
-        return events.contains(date);
+    private boolean isScheduleOnDate(String date) {
+        return scheduleDates.contains(date);
     }
 
     @Override

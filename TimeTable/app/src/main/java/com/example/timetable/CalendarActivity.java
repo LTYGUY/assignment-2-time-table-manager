@@ -4,8 +4,6 @@ package com.example.timetable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +25,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private LocalDate selectedDate;
     private CalendarAdapter calendarAdapter;
 
+    //private DataBaseManager dataBaseManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -44,6 +44,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         //just need to run this once for initialising
         //Load up all the managers this application will use
         new AllManagers(this);
+        //dataBaseManager = new DataBaseManager(this); // Assume you initialized the DataBaseManager here
+        //dataBaseManager.deleteAllSchedules();
     }
 
     private void initWidgets()
@@ -55,10 +57,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-        ArrayList events = getEventDates(this);
+        ArrayList scheduleDates = getScheduleDates(this);
 
         //Update the adapter's data instead of creating a new adapter every time month view is set.
-        calendarAdapter.updateData(daysInMonth, events, selectedDate);
+        calendarAdapter.updateData(daysInMonth, scheduleDates, selectedDate);
     }
 
     private ArrayList<String> daysInMonthArray(LocalDate date)
@@ -113,20 +115,9 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         }
     }
 
-    public ArrayList<String> getEventDates(Context context) {
-        ArrayList<String> eventDates = new ArrayList<>();
-
-        DataBaseManager dbManager = new DataBaseManager(context);
-        Cursor cursor = dbManager.selectAllSchedule();
-
-        // The column index of the date in the table
-        int dateColumnIndex = cursor.getColumnIndex(DataBaseManager.SCHEDULE_ROW_DATE);
-
-        while (cursor.moveToNext()) {
-            String date = cursor.getString(dateColumnIndex);
-            eventDates.add(date);
-        }
-        cursor.close();
-        return eventDates;
+    public ArrayList<String> getScheduleDates(CalendarActivity calendarActivity) {
+        DataBaseManager dbManager = new DataBaseManager(this);
+        return dbManager.getScheduleDates();
     }
+
 }
