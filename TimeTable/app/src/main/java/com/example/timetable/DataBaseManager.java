@@ -1,4 +1,5 @@
-//Written By: Ting Ying
+//Written By: Ting Ying, Lorraine
+
 package com.example.timetable;
 
 import android.content.ContentValues;

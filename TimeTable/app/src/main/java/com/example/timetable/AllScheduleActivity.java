@@ -1,3 +1,5 @@
+//Written by: Lorraine
+
 package com.example.timetable;
 
 import android.os.Bundle;

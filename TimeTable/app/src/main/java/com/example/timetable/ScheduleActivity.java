@@ -1,4 +1,5 @@
-//Written by: Lorraine
+//Written by: Lorraine, Collin
+
 package com.example.timetable;
 
 import android.content.Intent;

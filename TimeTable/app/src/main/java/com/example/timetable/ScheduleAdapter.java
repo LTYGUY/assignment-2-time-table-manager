@@ -1,3 +1,5 @@
+//Written by: Lorraine, Collin
+
 package com.example.timetable;
 
 import android.content.Context;
