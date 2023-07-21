@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public final TextView dayOfMonth;
     private final CalendarAdapter.OnItemListener onItemListener;
@@ -32,7 +34,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         return selectedDay;
     }
 
-    private void startScheduleActivity(View view, String selectedDate) {
+    private void startScheduleActivity(String selectedDate) {
         AllManagers.NavigationManager.GoToActivity(ScheduleActivity.class,
                 (intentToModify)->
                 {
@@ -48,7 +50,13 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         if (selectedDate.equals("")){
             return;
         }
-        startScheduleActivity(view, selectedDate);
+
+        //Prevent from entering days with no schedules
+        List<ScheduleRow> dataList = AllManagers.DataBaseManager.getScheduleForDate(selectedDate);
+        if (dataList.size() < 1)
+            return;
+
+        startScheduleActivity(selectedDate);
     }
 }
 
