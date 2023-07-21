@@ -88,11 +88,11 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
         List<ScheduleRow> scheduleList = AllManagers.DataBaseManager.getScheduleForDate(formattedDate);
 
-        for (int s = 0; s < scheduleList.size(); s++)
+        if (scheduleList.size() > 0)
         {
-            ScheduleRow row = scheduleList.get(s);
+            ScheduleRow row = scheduleList.get(0);
 
-            dayCellTextContent += row.Time + " " + row.Name + "\n\n";
+            dayCellTextContent += row.Time + " " + row.Name;
         }
 
         cellContent.setText(dayCellTextContent);
