@@ -150,6 +150,16 @@ public class DataBaseManager {
         db.execSQL(query);
     }
 
+    private String getCreateScheduleTableQuery()
+    {
+        return QueryHelper.CreateTable(SCHEDULE_TABLE,
+            QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
+                    + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
+                    + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
+                    + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
+                    + QueryHelper.TextNotNull(SCHEDULE_ROW_TIME));
+    }
+
     //create schedule table. Can also change it to public, just to call it once to create the table into the database
     // also useful if you dropped the table.
     private void createScheduleTable()
@@ -158,12 +168,7 @@ public class DataBaseManager {
         if (tableExists(SCHEDULE_TABLE))
             return;
 
-        String newScheduleTable = QueryHelper.CreateTable(SCHEDULE_TABLE,
-                QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
-                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
-                        + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
-                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
-                        + QueryHelper.TextNotNull(SCHEDULE_ROW_TIME));
+        String newScheduleTable = getCreateScheduleTableQuery();
 
         db.execSQL(newScheduleTable);
     }
@@ -194,12 +199,7 @@ public class DataBaseManager {
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            String newScheduleTable = QueryHelper.CreateTable(SCHEDULE_TABLE,
-                    QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
-                            + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
-                            + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
-                            + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
-                            + QueryHelper.TextNotNull(SCHEDULE_ROW_TIME));
+            String newScheduleTable = getCreateScheduleTableQuery();
 
             db.execSQL(newScheduleTable);
         }
