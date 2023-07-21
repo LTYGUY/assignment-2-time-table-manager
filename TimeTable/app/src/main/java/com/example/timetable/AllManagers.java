@@ -3,11 +3,7 @@
 package com.example.timetable;
 
 import android.app.Activity;
-import android.content.Context;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 public class AllManagers {
     public static AllManagers Instance;
@@ -30,6 +26,7 @@ public class AllManagers {
         DataBaseManager = new DataBaseManager(startingActivity);
     }
 
+    //ref:https://developer.android.com/guide/components/activities/activity-lifecycle
     //Should be called in the beginnings of new Activity(s)
     //Some managers may want to do something, when an activity opens
     public void OpenedActivity(Activity latestActivity) {
@@ -37,9 +34,11 @@ public class AllManagers {
         NavigationManager.OpenedActivity(latestActivity);
     }
 
-    public void ClosedActivity(Activity nowCurrentActivity)
+    //Should be called in the end of current activity
+    //Some managers may want to do something, when an activity closes
+    public void ClosedActivity()
     {
-        currentActivity = nowCurrentActivity;
+        currentActivity = NavigationManager.CurrentActivityClosed();
     }
 
     public void MakeToast(String msg)

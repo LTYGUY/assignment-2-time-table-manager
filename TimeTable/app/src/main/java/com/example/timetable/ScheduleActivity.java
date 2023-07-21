@@ -4,7 +4,6 @@ package com.example.timetable;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +14,10 @@ public class ScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_schedule_listview);
+
+        AllManagers.Instance.OpenedActivity(this);
 
         ListView listView = findViewById(R.id.list_view);
         // Retrieve the selected day from the intent
@@ -30,6 +32,14 @@ public class ScheduleActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+
+        AllManagers.Instance.ClosedActivity();
     }
 }
 

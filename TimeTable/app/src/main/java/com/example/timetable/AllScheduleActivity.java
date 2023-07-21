@@ -16,6 +16,8 @@ public class AllScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_listview);
 
+        AllManagers.Instance.OpenedActivity(this);
+
         ListView listView = findViewById(R.id.list_view);
 
         DataBaseManager dbManager = new DataBaseManager(this);
@@ -24,5 +26,11 @@ public class AllScheduleActivity extends AppCompatActivity {
         ScheduleAdapter adapter = new ScheduleAdapter(this, scheduleItems);
 
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        AllManagers.Instance.ClosedActivity();
     }
 }

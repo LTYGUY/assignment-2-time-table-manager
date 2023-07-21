@@ -59,11 +59,15 @@ public class NavigationManager {
     public void CloseCurrentActivity()
     {
         currentActivity.finish();
+    }
+
+    public Activity CurrentActivityClosed()
+    {
         activitiesFromBeginning.pop();
 
         currentActivity = activitiesFromBeginning.peek();
 
         //Let AllManagers update its currentActivity
-        AllManagers.Instance.ClosedActivity(currentActivity);
+        return currentActivity;
     }
 }

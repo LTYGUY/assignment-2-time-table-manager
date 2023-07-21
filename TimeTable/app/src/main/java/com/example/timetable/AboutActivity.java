@@ -2,10 +2,10 @@
 
 package com.example.timetable;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -19,5 +19,13 @@ public class AboutActivity extends AppCompatActivity {
 
     public void GoBack(View view){
         AllManagers.NavigationManager.CloseCurrentActivity();
+    }
+
+    //https://developer.android.com/guide/components/activities/activity-lifecycle
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        AllManagers.Instance.ClosedActivity();
     }
 }
