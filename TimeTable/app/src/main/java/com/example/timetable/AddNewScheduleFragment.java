@@ -3,11 +3,11 @@
 package com.example.timetable;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +19,36 @@ import android.widget.ImageButton;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.DialogFragment;
-import android.app.DatePickerDialog;
-
-import com.google.android.gms.maps.MapView;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 
 
+//going to use it for editing existing schedules as well
 public class AddNewScheduleFragment extends DialogFragment {
+
+    //Wrap set of data for easier passing into parameters of functions
+    private class EasySetupData{
+        public View View;
+        public Purpose Purpose;
+        public ScheduleRow ScheduleRow;
+
+        public EasySetupData(View v, Purpose p, ScheduleRow s)
+        {
+            View = v;
+            Purpose = p;
+            ScheduleRow = s;
+        }
+    }
+
+    public static final String PURPOSE = "purpose";
+    public static final String SCHEDULE_ID = "scheduleId";
+    public enum Purpose{
+        Add,
+        Update
+    }
+
     private ActivityResultLauncher<Intent> mapLauncher;
     private static final int REQUEST_CODE_MAP = 1;
     Calendar calendar = Calendar.getInstance();
@@ -50,6 +70,31 @@ public class AddNewScheduleFragment extends DialogFragment {
     String dateEditTextValue;
     String timeEditTextValue;
 
+    //ref:https://stackoverflow.com/questions/20405070/how-to-use-dialog-fragment-showdialog-deprecated-android
+    public static AddNewScheduleFragment newInstance(Purpose purpose, int scheduleId)
+    {
+        AddNewScheduleFragment frag = new AddNewScheduleFragment();
+        frag.setOnScheduleAddedListener(() -> {
+            // Get the parent activity and cast it to CalendarActivity
+            CalendarActivity calendarActivity = (CalendarActivity) AllManagers.NavigationManager.GetRunningRootActivity();
+
+            // Call setMonthView if the cast was successful
+            if (calendarActivity != null) {
+                calendarActivity.setMonthView();
+            }
+        });
+
+
+        Bundle args = new Bundle();
+
+        Integer i = purpose.ordinal();
+        //ref:https://stackoverflow.com/questions/5878952/cast-int-to-enum-in-java
+        args.putInt(PURPOSE, i);
+        args.putInt(SCHEDULE_ID, scheduleId);
+        frag.setArguments(args);
+        return frag;
+    }
+
     public AddNewScheduleFragment() {
         // Required empty public constructor
     }
@@ -63,6 +108,24 @@ public class AddNewScheduleFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_schedule, container, false);
+
+        //get the intended purpose of this fragment instance
+        Purpose purpose =  Purpose.values()[getArguments().getInt(PURPOSE, Purpose.Add.ordinal())];
+
+        Integer scheduleId = getArguments().getInt(SCHEDULE_ID, -1);
+
+        ScheduleRow scheduleRow = null;
+
+        //if its default value, means no need to find schedule id.
+        //Of course PURPOSE can also aid in indicating,
+        // but using schedule id as the decider is better, because you can add more PURPOSE.
+        if (scheduleId != -1)
+            scheduleRow = AllManagers.DataBaseManager.getScheduleRowById(scheduleId);
+
+        //Make passing values much easier
+        EasySetupData easySetupData = new EasySetupData(v, purpose, scheduleRow);
+
+        //regardless of purpose, this will be setup.
         mapLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
@@ -80,28 +143,53 @@ public class AddNewScheduleFragment extends DialogFragment {
                         }
                     }
                 });
-        setupEditTexts(v);
-        setupDateButton(v);
-        setupTimeButton(v);
-        setupAddScheduleButton(v);
-        setupMapButton(v);
+
+        setupEditTexts(easySetupData);
+        setupDateButton(easySetupData);
+        setupTimeButton(easySetupData);
+        setupAddScheduleButton(easySetupData);
+        setupMapButton(easySetupData);
 
         return v;
     }
 
-    private void setupEditTexts(View v) {
+    private void setupEditTexts(EasySetupData esd) {
+        View v = esd.View;
+
         nameEditText = v.findViewById(R.id.addNewNameEdit);
         descriptionEditText = v.findViewById(R.id.addNewDescEdit);
         dateEditText = v.findViewById(R.id.addNewDateEdit);
         timeEditText = v.findViewById(R.id.addNewTimeEditField);
 
-        nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
-        descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
-        dateEditText.setOnFocusChangeListener(EditTextHelper.DateClearOnFirstTap(dateEditText));
-        timeEditText.setOnFocusChangeListener(EditTextHelper.TimeClearOnFirstTap(timeEditText));
+        switch (esd.Purpose)
+        {
+            case Add:
+                nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
+                descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
+                dateEditText.setOnFocusChangeListener(EditTextHelper.DateClearOnFirstTap(dateEditText));
+                timeEditText.setOnFocusChangeListener(EditTextHelper.TimeClearOnFirstTap(timeEditText));
+                break;
+
+            case Update:
+                ScheduleRow row = esd.ScheduleRow;
+
+                nameEditText.setText(row.Name);
+                descriptionEditText.setText(row.Description);
+                dateEditText.setText(row.Date);
+                timeEditText.setText(row.Time);
+
+                //date and time EditTextValue is null on every new of this fragment,
+                // need to assign it if user wants to update schedule
+                dateEditTextValue = esd.ScheduleRow.Date;
+                timeEditTextValue = esd.ScheduleRow.Time;
+
+                break;
+        }
     }
 
-    private void setupDateButton(View v) {
+    private void setupDateButton(EasySetupData esd) {
+        View v = esd.View;
+
         ImageButton chooseDateBtn = (ImageButton) v.findViewById(R.id.addNewDateButton);
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -125,7 +213,9 @@ public class AddNewScheduleFragment extends DialogFragment {
         });
     }
 
-    private void setupTimeButton(View v) {
+    private void setupTimeButton(EasySetupData esd) {
+        View v = esd.View;
+
         ImageButton chooseTimeBtn = (ImageButton) v.findViewById(R.id.addNewTimeButton);
 
         chooseTimeBtn.setOnClickListener(view -> {
@@ -142,7 +232,9 @@ public class AddNewScheduleFragment extends DialogFragment {
             timePicker.show();
         });
     }
-    private void setupMapButton(View v) {
+    private void setupMapButton(EasySetupData esd) {
+        View v = esd.View;
+
         Button mapButton = v.findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,25 +247,61 @@ public class AddNewScheduleFragment extends DialogFragment {
     }
 
 
-    private void setupAddScheduleButton(View v) {
+    private void setupAddScheduleButton(EasySetupData esd) {
+        View v = esd.View;
+
         Button addScheduleBtn = (Button) v.findViewById(R.id.addNewScheduleButton);
 
-        addScheduleBtn.setOnClickListener(view -> {
-            AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
-                    getDescriptionEditTextValue(),
-                    dateEditTextValue,
-                    timeEditTextValue);
+        View.OnClickListener codeToRunOnClick = null;
 
-            AllManagers.DataBaseManager.getAndLogAllSchedule();
+        switch (esd.Purpose)
+        {
+            case Add:
+                addScheduleBtn.setText("Add a schedule");
+                codeToRunOnClick = view -> {
+                    AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
+                            getDescriptionEditTextValue(),
+                            dateEditTextValue,
+                            timeEditTextValue);
 
-            dismiss();
+                    AllManagers.DataBaseManager.getAndLogAllSchedule();
 
-            AllManagers.Instance.MakeToast("Successfully added schedule!");
+                    dismiss();
 
-            if (onScheduleAddedListener != null) {
-                onScheduleAddedListener.onScheduleAdded();
-            }
-        });
+                    AllManagers.Instance.MakeToast("Successfully added schedule!");
+
+                    if (onScheduleAddedListener != null) {
+                        onScheduleAddedListener.onScheduleAdded();
+                    }
+                };
+                break;
+
+            case Update:
+                addScheduleBtn.setText("Update schedule");
+                codeToRunOnClick = view -> {
+                    ScheduleRow updatedRow = new ScheduleRow(
+                            esd.ScheduleRow.ScheduleId,
+                            getNameEditTextValue(),
+                            getDescriptionEditTextValue(),
+                            dateEditTextValue,
+                            timeEditTextValue);
+
+                    AllManagers.DataBaseManager.updateScheduleRowById(updatedRow);
+
+                    AllManagers.DataBaseManager.getAndLogAllSchedule();
+
+                    dismiss();
+
+                    AllManagers.Instance.MakeToast("Successfully updated schedule!");
+
+                    if (onScheduleAddedListener != null) {
+                        onScheduleAddedListener.onScheduleAdded();
+                    }
+                };
+                break;
+        }
+
+        addScheduleBtn.setOnClickListener(codeToRunOnClick);
     }
 
     public interface OnScheduleAddedListener {

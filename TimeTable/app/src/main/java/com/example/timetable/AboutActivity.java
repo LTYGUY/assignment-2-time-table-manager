@@ -14,7 +14,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        AllManagers.Instance.OpenedActivity(this);
+        AllManagers.Instance.OpenedActivity(this, getSupportFragmentManager());
     }
 
     public void GoBack(View view){

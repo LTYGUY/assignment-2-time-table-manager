@@ -17,7 +17,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_schedule_listview);
 
-        AllManagers.Instance.OpenedActivity(this);
+        AllManagers.Instance.OpenedActivity(this, getSupportFragmentManager());
 
         ListView listView = findViewById(R.id.list_view);
         // Retrieve the selected day from the intent

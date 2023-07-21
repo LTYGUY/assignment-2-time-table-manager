@@ -2,9 +2,9 @@
 
 package com.example.timetable;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
         //just need to run this once for initialising
         //Load up all the managers this application will use
-        new AllManagers(this);
+        new AllManagers(this, getSupportFragmentManager());
     }
 }

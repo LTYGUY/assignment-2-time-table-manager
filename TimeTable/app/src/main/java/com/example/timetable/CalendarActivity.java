@@ -2,16 +2,14 @@
 
 package com.example.timetable;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -43,7 +41,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         setMonthView();
         //just need to run this once for initialising
         //Load up all the managers this application will use
-        new AllManagers(this);
+        new AllManagers(this, getSupportFragmentManager());
         //dataBaseManager = new DataBaseManager(this); // Assume you initialized the DataBaseManager here
         //dataBaseManager.deleteAllSchedules();
     }

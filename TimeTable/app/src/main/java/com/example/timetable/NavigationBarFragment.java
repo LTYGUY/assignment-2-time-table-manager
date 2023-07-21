@@ -4,11 +4,12 @@ package com.example.timetable;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import androidx.fragment.app.Fragment;
 
 public class NavigationBarFragment extends Fragment {
 
@@ -48,17 +49,7 @@ public class NavigationBarFragment extends Fragment {
 
     private void setupAddButton(ImageButton addButton) {
         addButton.setOnClickListener(view -> {
-            AddNewScheduleFragment frag = new AddNewScheduleFragment();
-            frag.setOnScheduleAddedListener(() -> {
-                // Get the parent activity and cast it to CalendarActivity
-                CalendarActivity calendarActivity = (CalendarActivity) getActivity();
-
-                // Call setMonthView if the cast was successful
-                if (calendarActivity != null) {
-                    calendarActivity.setMonthView();
-                }
-            });
-            frag.show(getParentFragmentManager(), "");
+            AllManagers.Instance.PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose.Add);
         });
     }
     private void setupAboutButton(ImageButton aboutButton) {

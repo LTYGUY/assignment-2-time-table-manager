@@ -11,7 +11,10 @@ import java.util.concurrent.Callable;
 
 public class NavigationManager {
     private Activity mainActivity = null;
+    public Activity GetRunningRootActivity(){return mainActivity;}
+
     private Activity currentActivity = null;
+    public Activity GetTopRunningActivity(){ return currentActivity; }
 
     //represents how the activities are layered on top of one another
     private Stack<Activity> activitiesFromBeginning = new Stack<Activity>();

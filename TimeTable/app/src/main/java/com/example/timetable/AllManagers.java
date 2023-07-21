@@ -5,6 +5,10 @@ package com.example.timetable;
 import android.app.Activity;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+
+import java.util.Stack;
+
 public class AllManagers {
     public static AllManagers Instance;
     //no point making it non static, need to write one more '.Instance'.
@@ -13,12 +17,13 @@ public class AllManagers {
 
     private Activity currentActivity;
 
-    public AllManagers(Activity startingActivity){
+    public AllManagers(Activity startingActivity, FragmentManager fm){
         if (Instance != null)
             return;
 
         Instance = this;
         currentActivity = startingActivity;
+        fragmentManagersStack.add(fm);
 
         NavigationManager = new NavigationManager();
         NavigationManager.SetMainScreen(startingActivity);
@@ -26,12 +31,27 @@ public class AllManagers {
         DataBaseManager = new DataBaseManager(startingActivity);
     }
 
+    //Method overload. Since java don't allow default values for parameters
+    public void PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose purpose){
+        PopupAddNewScheduleFragment(purpose, -1);
+    }
+
+    public void PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose purpose, int scheduleId){
+        AddNewScheduleFragment frag = AddNewScheduleFragment.newInstance(purpose, scheduleId);
+
+        frag.show(fragmentManagersStack.peek(), "");
+    }
+
+
+    private Stack<FragmentManager> fragmentManagersStack = new Stack<>();
+
     //ref:https://developer.android.com/guide/components/activities/activity-lifecycle
     //Should be called in the beginnings of new Activity(s)
     //Some managers may want to do something, when an activity opens
-    public void OpenedActivity(Activity latestActivity) {
+    public void OpenedActivity(Activity latestActivity, FragmentManager fm) {
         currentActivity = latestActivity;
         NavigationManager.OpenedActivity(latestActivity);
+        fragmentManagersStack.add(fm);
     }
 
     //Should be called in the end of current activity
@@ -39,6 +59,7 @@ public class AllManagers {
     public void ClosedActivity()
     {
         currentActivity = NavigationManager.CurrentActivityClosed();
+        fragmentManagersStack.pop();
     }
 
     public void MakeToast(String msg)
