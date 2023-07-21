@@ -2,7 +2,6 @@
 
 package com.example.timetable;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +41,12 @@ public class NavigationBarFragment extends Fragment {
     }*/
     private void setupMainScreenButton(ImageButton allScheduleButton) {
         allScheduleButton.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), AllScheduleActivity.class);
-            startActivity(intent);
+            AllManagers.NavigationManager.GoToActivity(ScheduleActivity.class,
+                    (intentToModify)->
+            {
+                intentToModify.putExtra(ScheduleActivity.PURPOSE,
+                        ScheduleActivity.Purpose.DisplayAll.ordinal());
+            });
         });
     }
 

@@ -46,15 +46,31 @@ public class NavigationManager {
         GoToActivity(mainActivity.getClass());
     }
 
+    //Just go to activity without caring about modifying intent.
+    public void GoToActivity(Class activity)
+    {
+        GoToActivity(activity, new IntentDelegate() {
+            @Override
+            public void intentFunc(Intent intent) {
+
+            }
+        });
+    }
+
     //Go to specified activity class,
     //with a prevention of starting same as current activity.
-    public void GoToActivity(Class activityClass)
+    //Learnt from Lorraine's work done.
+    //Also allows modification to intent
+    public void GoToActivity(Class activityClass, IntentDelegate intentDelegate)
     {
         //if trying to go same activity, will do nothing
         if (activityClass == currentActivity.getClass())
             return;
 
-        currentActivity.startActivity(new Intent(currentActivity, activityClass));
+        Intent canBeModifiedIntent = new Intent(currentActivity, activityClass);
+        intentDelegate.intentFunc(canBeModifiedIntent);
+
+        currentActivity.startActivity(canBeModifiedIntent);
     }
 
     //Basically to close current activity, and return to previous activity.
@@ -72,5 +88,9 @@ public class NavigationManager {
 
         //Let AllManagers update its currentActivity
         return currentActivity;
+    }
+
+    public interface IntentDelegate{
+        void intentFunc(Intent intent);
     }
 }

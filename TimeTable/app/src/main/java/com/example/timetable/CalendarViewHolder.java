@@ -2,7 +2,6 @@
 
 package com.example.timetable;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,9 +33,13 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     }
 
     private void startScheduleActivity(View view, String selectedDate) {
-        Intent intent = new Intent(view.getContext(), ScheduleActivity.class);
-        intent.putExtra("SELECTED_DAY", selectedDate);
-        view.getContext().startActivity(intent);
+        AllManagers.NavigationManager.GoToActivity(ScheduleActivity.class,
+                (intentToModify)->
+                {
+                    intentToModify.putExtra(ScheduleActivity.PURPOSE,
+                            ScheduleActivity.Purpose.SpecifiedDate.ordinal());
+                    intentToModify.putExtra(ScheduleActivity.SELECTED_DAY, selectedDate);
+                });
     }
 
     @Override
