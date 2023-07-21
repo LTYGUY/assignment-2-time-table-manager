@@ -24,9 +24,8 @@ public class ScheduleActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String selectedDate = intent.getStringExtra("SELECTED_DAY");
 
-        DataBaseManager dbManager = new DataBaseManager(this);
         // Get the schedules for the selected day
-        List<ScheduleRow> scheduleItems = dbManager.getScheduleForDate(selectedDate);
+        List<ScheduleRow> scheduleItems = AllManagers.DataBaseManager.getScheduleForDate(selectedDate);
 
         ScheduleAdapter adapter = new ScheduleAdapter(this, scheduleItems);
 

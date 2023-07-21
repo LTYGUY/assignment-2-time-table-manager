@@ -20,8 +20,7 @@ public class AllScheduleActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.list_view);
 
-        DataBaseManager dbManager = new DataBaseManager(this);
-        List<ScheduleRow> scheduleItems = dbManager.getAllSchedule();
+        List<ScheduleRow> scheduleItems = AllManagers.DataBaseManager.getAllSchedule();
 
         ScheduleAdapter adapter = new ScheduleAdapter(this, scheduleItems);
 
