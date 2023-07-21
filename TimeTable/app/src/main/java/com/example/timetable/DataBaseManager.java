@@ -118,6 +118,10 @@ public class DataBaseManager {
         {
             list.add(new ScheduleRow(cursor));
         }
+
+        //added sorting
+        list = ScheduleRow.GetSortedScheduleList(list);
+
         return list;
     }
 
@@ -222,6 +226,7 @@ public class DataBaseManager {
             scheduleDates.add(date);
         }
         cursor.close();
+
         return scheduleDates;
     }
 
@@ -233,6 +238,10 @@ public class DataBaseManager {
             list.add(new ScheduleRow(cursor));
         }
         cursor.close();
+
+        //Added ascending sort.
+        list = ScheduleRow.GetSortedScheduleList(list);
+
         // Log the date and the list
         Log.d("DatabaseManager", "Date: " + date + ", Schedules: " + list.toString());
 

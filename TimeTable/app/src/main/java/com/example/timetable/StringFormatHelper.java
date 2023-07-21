@@ -37,4 +37,14 @@ public class  StringFormatHelper {
     {
         return GetDate(month, dayTV.getText().toString(), year);
     }
+
+    public static String DebugVS(String one, String two)
+    {
+        return one + " VS " + two;
+    }
+
+    public static String DebugVS(int one, int two)
+    {
+        return one + " VS " + two;
+    }
 }

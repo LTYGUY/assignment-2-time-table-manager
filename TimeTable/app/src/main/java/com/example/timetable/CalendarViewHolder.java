@@ -12,12 +12,14 @@ import java.util.List;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public final TextView dayOfMonth;
+    public final TextView content;
     private final CalendarAdapter.OnItemListener onItemListener;
     private final CalendarAdapter calendarAdapter; // reference to the adapter
 
     public CalendarViewHolder(@NonNull View itemView, CalendarAdapter.OnItemListener onItemListener, CalendarAdapter calendarAdapter) {
         super(itemView);
         dayOfMonth = itemView.findViewById(R.id.cellDayText);
+        content = itemView.findViewById(R.id.cellDayContent);
         this.onItemListener = onItemListener;
         this.calendarAdapter = calendarAdapter; // store the Calenadapter reference
         itemView.setOnClickListener(this);

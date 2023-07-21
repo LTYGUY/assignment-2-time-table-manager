@@ -30,6 +30,12 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_activity);
+
+        //just need to run this once for initialising
+        //Load up all the managers this application will use
+        new AllManagers(this, getSupportFragmentManager());
+        AllManagers.Instance.TakeCalendarActivity(this);
+
         initWidgets();
         selectedDate = LocalDate.now();
         calendarAdapter = new CalendarAdapter(new ArrayList<>(), this, new ArrayList<>(), selectedDate); // Create the adapter here
@@ -39,10 +45,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecyclerView.setAdapter(calendarAdapter);
 
         setMonthView();
-        //just need to run this once for initialising
-        //Load up all the managers this application will use
-        new AllManagers(this, getSupportFragmentManager());
-        AllManagers.Instance.TakeCalendarActivity(this);
+
         //dataBaseManager = new DataBaseManager(this); // Assume you initialized the DataBaseManager here
         //dataBaseManager.deleteAllSchedules();
     }
@@ -80,7 +83,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
             }
             else
             {
-                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
+                //actual days in the month.
+                //the day.
+                String dayNumber = String.valueOf(i - dayOfWeek);
+                daysInMonthArray.add(dayNumber);
             }
         }
         return  daysInMonthArray;
