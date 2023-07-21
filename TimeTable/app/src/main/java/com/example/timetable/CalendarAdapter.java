@@ -91,11 +91,14 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
         List<ScheduleRow> scheduleList = AllManagers.DataBaseManager.getScheduleForDate(formattedDate);
 
-        if (scheduleList.size() > 0)
-        {
-            ScheduleRow row = scheduleList.get(0);
+        if (scheduleList.size() < 1)
+            return;
 
-            dayCellTextContent += row.Time + " " + row.Name;
+        ScheduleRow rowToDisplay = ScheduleRow.GetClosestIncomingSchedule(scheduleList);
+
+        if (rowToDisplay != null)
+        {
+            dayCellTextContent = rowToDisplay.Time + " " + rowToDisplay.Name;
         }
 
         cellContent.setText(dayCellTextContent);
