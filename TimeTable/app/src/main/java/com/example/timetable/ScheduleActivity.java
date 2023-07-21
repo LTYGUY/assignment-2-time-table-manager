@@ -1,4 +1,5 @@
 //Written by: Lorraine, Collin
+//Adjusted by: Ting Ying
 
 package com.example.timetable;
 
@@ -59,6 +60,7 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onStop();
 
         AllManagers.Instance.ClosedActivity();
+        AllManagers.Instance.UpdateCalendarActivityUI();
     }
 }
 

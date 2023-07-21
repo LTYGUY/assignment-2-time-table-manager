@@ -3,6 +3,7 @@
 package com.example.timetable;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +30,22 @@ public class AllManagers {
         NavigationManager.SetMainScreen(startingActivity);
 
         DataBaseManager = new DataBaseManager(startingActivity);
+    }
+
+    private CalendarActivity calendarActivity = null;
+    public void TakeCalendarActivity(CalendarActivity activity)
+    {
+        calendarActivity = activity;
+    }
+    public void UpdateCalendarActivityUI()
+    {
+        if (calendarActivity == null)
+        {
+            Log.i("UpdateCalendarActivityUI", "is null! give up setMonthView()");
+            return;
+        }
+
+        calendarActivity.setMonthView();
     }
 
     //Method overload. Since java don't allow default values for parameters

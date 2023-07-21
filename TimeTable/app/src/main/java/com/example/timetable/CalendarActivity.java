@@ -42,6 +42,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         //just need to run this once for initialising
         //Load up all the managers this application will use
         new AllManagers(this, getSupportFragmentManager());
+        AllManagers.Instance.TakeCalendarActivity(this);
         //dataBaseManager = new DataBaseManager(this); // Assume you initialized the DataBaseManager here
         //dataBaseManager.deleteAllSchedules();
     }

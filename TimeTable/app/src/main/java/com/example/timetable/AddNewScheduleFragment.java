@@ -75,13 +75,7 @@ public class AddNewScheduleFragment extends DialogFragment {
     {
         AddNewScheduleFragment frag = new AddNewScheduleFragment();
         frag.setOnScheduleAddedListener(() -> {
-            // Get the parent activity and cast it to CalendarActivity
-            CalendarActivity calendarActivity = (CalendarActivity) AllManagers.NavigationManager.GetRunningRootActivity();
-
-            // Call setMonthView if the cast was successful
-            if (calendarActivity != null) {
-                calendarActivity.setMonthView();
-            }
+            AllManagers.Instance.UpdateCalendarActivityUI();
         });
 
 

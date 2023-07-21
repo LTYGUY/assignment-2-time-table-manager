@@ -1,4 +1,4 @@
-//Written by: Lorraine, Collin
+//Written by: Lorraine, Collin, Ting Ying
 
 package com.example.timetable;
 
