@@ -28,8 +28,8 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             return"";
         }
 
-        String selectedDay = String.format("%02d", Integer.parseInt(dayOfMonth.getText().toString()));
-        return selectedMonth + "/" + selectedDay + "/" + selectedYear;
+        String selectedDay = StringFormatHelper.GetDate(selectedMonth, dayOfMonth, selectedYear);
+        return selectedDay;
     }
 
     private void startScheduleActivity(View view, String selectedDate) {
