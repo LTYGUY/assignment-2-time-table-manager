@@ -67,9 +67,14 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         String dayText = daysOfMonth.get(position);
         holder.dayOfMonth.setText(dayText);
+        TextView cellContent = holder.content;
 
-        if (dayText.isEmpty())
+        String dayCellTextContent = "";
+
+        if (dayText.isEmpty()) {
+            cellContent.setText("");
             return;
+        }
 
         String dateToCheck = getDateString(dayText);
 
@@ -79,10 +84,8 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             holder.dayOfMonth.setTextColor(Color.BLACK);
         }
 
-        TextView cellContent = holder.content;
         String dayNumber = dayText.toString();
 
-        String dayCellTextContent = "";
         //append more details.
         String formattedDate = StringFormatHelper.GetDate(getSelectedMonth(),dayNumber,getSelectedYear());
 
