@@ -38,7 +38,15 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleRow> {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AllManagers.Instance.PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose.Update, item.ScheduleId);
+                AddNewScheduleFragment frag = AllManagers.Instance.PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose.Update, item.ScheduleId);
+
+                frag.setOnScheduleUpdatedListener(() -> {
+                    ScheduleRow updatedItem = AllManagers.DataBaseManager.getScheduleRowById(item.ScheduleId);
+
+                    item.CopyScheduleRow(updatedItem);
+
+                    ThisDataSetChanged();
+                });
             }
         });
 
@@ -56,6 +64,12 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleRow> {
 
         return convertView;
     }
+
+    private void ThisDataSetChanged()
+    {
+        notifyDataSetChanged();
+    }
+
     public void removeItem(int position) {
         if (position >= 0 && position < getCount()) {
             remove(getItem(position));

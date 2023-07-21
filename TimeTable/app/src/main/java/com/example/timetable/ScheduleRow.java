@@ -28,6 +28,15 @@ public class ScheduleRow {
         Time = time;
     }
 
+    public void CopyScheduleRow(ScheduleRow toCopy)
+    {
+        ScheduleId = toCopy.ScheduleId;
+        Name = toCopy.Name;
+        Description = toCopy.Description;
+        Date = toCopy.Date;
+        Time = toCopy.Time;
+    }
+
     //For debugging
     public String toString()
     {

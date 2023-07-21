@@ -85,6 +85,7 @@ public class AddNewScheduleFragment extends DialogFragment {
         });
 
 
+
         Bundle args = new Bundle();
 
         Integer i = purpose.ordinal();
@@ -294,14 +295,23 @@ public class AddNewScheduleFragment extends DialogFragment {
 
                     AllManagers.Instance.MakeToast("Successfully updated schedule!");
 
-                    if (onScheduleAddedListener != null) {
-                        onScheduleAddedListener.onScheduleAdded();
+                    if (onScheduleUpdatedListener != null) {
+                        onScheduleUpdatedListener.onScheduleUpdated();
                     }
                 };
                 break;
         }
 
         addScheduleBtn.setOnClickListener(codeToRunOnClick);
+    }
+
+    public interface OnScheduleUpdatedListener{
+        void onScheduleUpdated();
+    }
+
+    private OnScheduleUpdatedListener onScheduleUpdatedListener;
+    public void setOnScheduleUpdatedListener(OnScheduleUpdatedListener listener){
+        this.onScheduleUpdatedListener = listener;
     }
 
     public interface OnScheduleAddedListener {

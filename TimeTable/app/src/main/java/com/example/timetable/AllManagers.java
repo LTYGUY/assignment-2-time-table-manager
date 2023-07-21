@@ -32,14 +32,16 @@ public class AllManagers {
     }
 
     //Method overload. Since java don't allow default values for parameters
-    public void PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose purpose){
-        PopupAddNewScheduleFragment(purpose, -1);
+    public AddNewScheduleFragment PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose purpose){
+        return PopupAddNewScheduleFragment(purpose, -1);
     }
 
-    public void PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose purpose, int scheduleId){
+    public AddNewScheduleFragment PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose purpose, int scheduleId){
         AddNewScheduleFragment frag = AddNewScheduleFragment.newInstance(purpose, scheduleId);
 
         frag.show(fragmentManagersStack.peek(), "");
+
+        return frag;
     }
 
 
