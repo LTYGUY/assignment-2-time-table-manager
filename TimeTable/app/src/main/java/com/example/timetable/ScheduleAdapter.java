@@ -26,9 +26,13 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleRow> {
 
         ScheduleRow item = getItem(position);
 
+        TextView time = convertView.findViewById(R.id.time);
+        TextView date = convertView.findViewById(R.id.date);
         TextView title = convertView.findViewById(R.id.title);
         TextView description = convertView.findViewById(R.id.description);
 
+        time.setText(item.Time);
+        date.setText(item.Date);
         title.setText(item.Name);
         description.setText(item.Description);
 
