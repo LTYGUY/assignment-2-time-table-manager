@@ -19,7 +19,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
             android:contentDescription="all schedule button"
-            android:src="@android:drawable/ic_menu_my_calendar" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu_calendar" />
 
         <ImageButton
             android:id="@+id/addButton"
@@ -28,7 +29,18 @@
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
             android:contentDescription="add button"
-            android:src="@android:drawable/ic_menu_add" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu_add" />
+
+        <ImageButton
+            android:id="@+id/notesScreenButton"
+            android:layout_width="53dp"
+            android:layout_height="51dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/navigation_bar_background_color"
+            android:contentDescription="notes screen button"
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu_notes" />
 
         <ImageButton
             android:id="@+id/aboutScreenButton"
@@ -37,6 +49,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
             android:contentDescription="about screen button"
-            android:src="@android:drawable/ic_menu_info_details" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu_info" />
     </LinearLayout>
 </FrameLayout>
