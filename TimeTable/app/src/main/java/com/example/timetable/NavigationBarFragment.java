@@ -27,10 +27,12 @@ public class NavigationBarFragment extends Fragment {
 
         ImageButton allScheduleButton = v.findViewById(R.id.allScheduleButton);
         ImageButton addButton = v.findViewById(R.id.addButton);
+        ImageButton notesButton = v.findViewById(R.id.notesScreenButton);
         ImageButton aboutButton = v.findViewById(R.id.aboutScreenButton);
 
         setupMainScreenButton(allScheduleButton);
         setupAddButton(addButton);
+        setupNotesButton(notesButton);
         setupAboutButton(aboutButton);
 
         return v;
@@ -57,5 +59,9 @@ public class NavigationBarFragment extends Fragment {
     }
     private void setupAboutButton(ImageButton aboutButton) {
         aboutButton.setOnClickListener(view -> AllManagers.NavigationManager.GoToActivity(AboutActivity.class));
+    }
+
+    private void setupNotesButton(ImageButton notesButton) {
+        notesButton.setOnClickListener(view -> AllManagers.NavigationManager.GoToActivity(NotesActivity.class));
     }
 }
