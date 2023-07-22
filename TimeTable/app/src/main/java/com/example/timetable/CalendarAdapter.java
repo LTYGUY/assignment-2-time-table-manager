@@ -98,7 +98,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
         if (rowToDisplay != null)
         {
-            dayCellTextContent = rowToDisplay.Time + " " + rowToDisplay.Name;
+            dayCellTextContent = rowToDisplay.Time + "\n" + rowToDisplay.Name;
         }
 
         cellContent.setText(dayCellTextContent);
