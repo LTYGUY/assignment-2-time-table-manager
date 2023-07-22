@@ -53,6 +53,8 @@ public class AddNewScheduleFragment extends DialogFragment {
     private ActivityResultLauncher<Intent> mapLauncher;
     private static final int REQUEST_CODE_MAP = 1;
     Calendar calendar = Calendar.getInstance();
+
+    TextView titleText;
     EditText nameEditText;
     EditText descriptionEditText;
     TextView dateText;
@@ -150,6 +152,8 @@ public class AddNewScheduleFragment extends DialogFragment {
     private void setupEditTexts(EasySetupData esd) {
         View v = esd.View;
 
+
+        titleText = v.findViewById(R.id.addNewScheduleTitle);
         nameEditText = v.findViewById(R.id.addNewNameEdit);
         descriptionEditText = v.findViewById(R.id.addNewDescEdit);
         dateText = v.findViewById(R.id.addNewDateTextView);
@@ -158,6 +162,7 @@ public class AddNewScheduleFragment extends DialogFragment {
         switch (esd.Purpose)
         {
             case Add:
+                titleText.setText("Add Schedule");
                 nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
                 descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
 
@@ -166,6 +171,7 @@ public class AddNewScheduleFragment extends DialogFragment {
                 break;
 
             case Update:
+                titleText.setText("Update Schedule");
                 ScheduleRow row = esd.ScheduleRow;
 
                 nameEditText.setText(row.Name);
@@ -276,6 +282,7 @@ public class AddNewScheduleFragment extends DialogFragment {
                 break;
 
             case Update:
+
                 addScheduleBtn.setText("Update schedule");
                 codeToRunOnClick = view -> {
                     if (!allowAddBtnToBePressed())
