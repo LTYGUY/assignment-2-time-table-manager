@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEditNoteActivity">
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="39dp"
+        android:hint="Title"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/contentEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/contentEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="26dp"
+        android:layout_weight="1"
+        android:gravity="top|start"
+        android:hint="Note"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        app:layout_constraintBottom_toTopOf="@+id/speechToTextButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+
+    <Button
+        android:id="@+id/speechToTextButton"
+        android:layout_width="164dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="12dp"
+        android:text="Speech to Text"
+        app:layout_constraintBottom_toTopOf="@+id/imageToTextButton"
+        app:layout_constraintEnd_toEndOf="@+id/contentEditText"
+        app:layout_constraintStart_toStartOf="@+id/contentEditText"
+        app:layout_constraintTop_toBottomOf="@+id/contentEditText" />
+
+    <Button
+        android:id="@+id/imageToTextButton"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="53dp"
+        android:text="Image to Text"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speechToTextButton" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="162dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="3dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancelButton"
+        app:layout_constraintTop_toTopOf="@+id/cancelButton" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="172dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="1dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageToTextButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
