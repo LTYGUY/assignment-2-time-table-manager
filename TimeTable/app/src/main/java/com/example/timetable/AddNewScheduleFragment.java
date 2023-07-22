@@ -57,7 +57,6 @@ public class AddNewScheduleFragment extends DialogFragment {
     EditText descriptionEditText;
     TextView dateText;
     TextView timeText;
-    EditText postalAddressText;
 
     //can use these to grab text directly from EditText
     private String getNameEditTextValue(){
@@ -135,7 +134,6 @@ public class AddNewScheduleFragment extends DialogFragment {
                             // Do something with the selected location (latitude and longitude)
                             // For example, update the EditText with the selected location
                             String selectedLocation = latitude + ", " + longitude;
-                            postalAddressText.setText(selectedLocation);
                         }
                     }
                 });
@@ -257,6 +255,9 @@ public class AddNewScheduleFragment extends DialogFragment {
             case Add:
                 addScheduleBtn.setText("Add a schedule");
                 codeToRunOnClick = view -> {
+                    if (!allowAddBtnToBePressed())
+                        return;
+
                     AllManagers.DataBaseManager.insertSchedule(getNameEditTextValue(),
                             getDescriptionEditTextValue(),
                             dateEditTextValue,
@@ -277,6 +278,9 @@ public class AddNewScheduleFragment extends DialogFragment {
             case Update:
                 addScheduleBtn.setText("Update schedule");
                 codeToRunOnClick = view -> {
+                    if (!allowAddBtnToBePressed())
+                        return;
+
                     ScheduleRow updatedRow = new ScheduleRow(
                             esd.ScheduleRow.ScheduleId,
                             getNameEditTextValue(),
@@ -300,6 +304,29 @@ public class AddNewScheduleFragment extends DialogFragment {
         }
 
         addScheduleBtn.setOnClickListener(codeToRunOnClick);
+    }
+
+    private boolean allowAddBtnToBePressed()
+    {
+        if (nameEditText.getText().toString().equals(""))
+        {
+            AllManagers.Instance.MakeToast("Please give a name.");
+            return false;
+        }
+
+        if (dateText.getText().toString().equals(""))
+        {
+            AllManagers.Instance.MakeToast("Please pick a date");
+            return false;
+        }
+
+        if (timeText.getText().toString().equals(""))
+        {
+            AllManagers.Instance.MakeToast("Please pick a time");
+            return false;
+        }
+
+        return true;
     }
 
     public interface OnScheduleUpdatedListener{
