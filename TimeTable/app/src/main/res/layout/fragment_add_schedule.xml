@@ -80,14 +80,13 @@
                 android:text="Date:"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/addNewDateEdit"
-                android:layout_width="156dp"
-                android:layout_height="67dp"
-                android:layout_weight="8"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Choose a date" />
+            <TextView
+                android:id="@+id/addNewDateTextView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/addNewDateButton"
@@ -110,6 +109,7 @@
                 android:id="@+id/addNewTimeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:contentDescription="add new time title"
                 android:gravity="center_horizontal|center_vertical"
@@ -117,14 +117,14 @@
                 android:text="Time:"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/addNewTimeEditField"
-                android:layout_width="150dp"
-                android:layout_height="67dp"
-                android:layout_weight="8"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Choose a time" />
+            <TextView
+                android:id="@+id/addNewTimeTextView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/addNewTimeButton"
