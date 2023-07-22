@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -54,8 +55,8 @@ public class AddNewScheduleFragment extends DialogFragment {
     Calendar calendar = Calendar.getInstance();
     EditText nameEditText;
     EditText descriptionEditText;
-    EditText dateEditText;
-    EditText timeEditText;
+    TextView dateText;
+    TextView timeText;
     EditText postalAddressText;
 
     //can use these to grab text directly from EditText
@@ -153,16 +154,17 @@ public class AddNewScheduleFragment extends DialogFragment {
 
         nameEditText = v.findViewById(R.id.addNewNameEdit);
         descriptionEditText = v.findViewById(R.id.addNewDescEdit);
-        dateEditText = v.findViewById(R.id.addNewDateEdit);
-        timeEditText = v.findViewById(R.id.addNewTimeEditField);
+        dateText = v.findViewById(R.id.addNewDateTextView);
+        timeText = v.findViewById(R.id.addNewTimeTextView);
 
         switch (esd.Purpose)
         {
             case Add:
                 nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
                 descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
-                dateEditText.setOnFocusChangeListener(EditTextHelper.DateClearOnFirstTap(dateEditText));
-                timeEditText.setOnFocusChangeListener(EditTextHelper.TimeClearOnFirstTap(timeEditText));
+
+                dateEditTextValue = "";
+                timeEditTextValue = "";
                 break;
 
             case Update:
@@ -170,8 +172,6 @@ public class AddNewScheduleFragment extends DialogFragment {
 
                 nameEditText.setText(row.Name);
                 descriptionEditText.setText(row.Description);
-                dateEditText.setText(row.Date);
-                timeEditText.setText(row.Time);
 
                 //date and time EditTextValue is null on every new of this fragment,
                 // need to assign it if user wants to update schedule
@@ -180,6 +180,9 @@ public class AddNewScheduleFragment extends DialogFragment {
 
                 break;
         }
+
+        dateText.setText(dateEditTextValue);
+        timeText.setText(timeEditTextValue);
     }
 
     private void setupDateButton(EasySetupData esd) {
@@ -198,7 +201,7 @@ public class AddNewScheduleFragment extends DialogFragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.US);
 
                 dateEditTextValue = dateFormat.format(calendar.getTime());
-                dateEditText.setText(dateEditTextValue);
+                dateText.setText(dateEditTextValue);
             }
         };
 
@@ -221,7 +224,7 @@ public class AddNewScheduleFragment extends DialogFragment {
 
             TimePickerDialog timePicker = new TimePickerDialog(getContext(), (timePickerView, selectedHour, selectedMinute) -> {
                 timeEditTextValue = StringFormatHelper.GetTime(selectedHour, selectedMinute);
-                timeEditText.setText(timeEditTextValue);
+                timeText.setText(timeEditTextValue);
             }, hour, minute, true);
             timePicker.setTitle("Select Time");
             timePicker.show();
