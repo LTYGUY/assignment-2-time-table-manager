@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_horizontal|center_vertical"
-            android:text="Add new"
+            android:text="Schedule Details"
+            android:textStyle="bold"
             android:textSize="24sp" />
 
         <LinearLayout
@@ -139,20 +140,49 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
 
-            <Button
-                android:id="@+id/mapButton"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/addNewLocationTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="See Your Location" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:contentDescription="add new location title"
+                android:gravity="center_horizontal|center_vertical"
+                android:singleLine="false"
+                android:text="Location:"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/addNewLocationTextView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/addNewLocationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:contentDescription="location button"
+                android:src="@drawable/menu_location" />
+
         </LinearLayout>
 
         <Button
             android:id="@+id/addNewScheduleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp"
             android:text="Add Schedule" />
 
     </LinearLayout>

@@ -7,6 +7,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.DialogFragment;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -122,24 +126,29 @@ public class AddNewScheduleFragment extends DialogFragment {
         //Make passing values much easier
         EasySetupData easySetupData = new EasySetupData(v, purpose, scheduleRow);
 
-        //regardless of purpose, this will be setup.
+        TextView locationTextView = v.findViewById(R.id.addNewLocationTextView);
         mapLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        // Handle the result from the MapActivity here
                         Intent data = result.getData();
                         if (data != null) {
-                            // Get the selected location data from the MapActivity
                             double latitude = data.getDoubleExtra("latitude", 0);
                             double longitude = data.getDoubleExtra("longitude", 0);
 
-                            // Do something with the selected location (latitude and longitude)
-                            // For example, update the EditText with the selected location
-                            String selectedLocation = latitude + ", " + longitude;
+                            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                            try {
+                                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                                if (addresses != null && !((List<?>) addresses).isEmpty()) {
+                                    Address address = addresses.get(0);
+                                    String locationName = address.getAddressLine(0); // Full Address
+                                    locationTextView.setText(locationName);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });
-
         setupEditTexts(easySetupData);
         setupDateButton(easySetupData);
         setupTimeButton(easySetupData);
@@ -237,7 +246,7 @@ public class AddNewScheduleFragment extends DialogFragment {
     private void setupMapButton(EasySetupData esd) {
         View v = esd.View;
 
-        Button mapButton = v.findViewById(R.id.mapButton);
+        ImageButton mapButton = v.findViewById(R.id.addNewLocationButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
