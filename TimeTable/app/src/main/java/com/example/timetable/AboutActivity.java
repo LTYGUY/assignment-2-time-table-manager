@@ -22,9 +22,9 @@ public class AboutActivity extends AppCompatActivity {
 
     //https://developer.android.com/guide/components/activities/activity-lifecycle
     @Override
-    protected void onStop()
+    protected void onDestroy()
     {
-        super.onStop();
+        super.onDestroy();
         AllManagers.Instance.ClosedActivity();
     }
 }

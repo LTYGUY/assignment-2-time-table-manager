@@ -167,7 +167,7 @@ public class DataBaseManager {
 
     //create schedule table. Can also change it to public, just to call it once to create the table into the database
     // also useful if you dropped the table.
-    private void createScheduleTable()
+    public void createScheduleTable()
     {
         //if table already exists, don't do anything
         if (tableExists(SCHEDULE_TABLE))

@@ -36,6 +36,8 @@ public class NavigationManager {
     {
         currentActivity = latestActivity;
         activitiesFromBeginning.add(latestActivity);
+
+        Log.i("NavigationManager", "currentActivity: " + currentActivity.getClass().getName());
     }
 
     //NOT MainActivity.java
@@ -83,8 +85,10 @@ public class NavigationManager {
         if (!activitiesFromBeginning.empty()) {
             currentActivity = activitiesFromBeginning.peek();
         } else {
-            currentActivity = null; // or however you want to handle empty stack
+            currentActivity = mainActivity; // or however you want to handle empty stack
         }
+
+        Log.i("NavigationManager", "currentActivity: " + currentActivity.getClass().getName());
 
         //Let AllManagers update its currentActivity
         return currentActivity;

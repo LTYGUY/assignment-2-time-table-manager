@@ -56,9 +56,9 @@ public class ScheduleActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop()
+    protected void onDestroy()
     {
-        super.onStop();
+        super.onDestroy();
 
         AllManagers.Instance.ClosedActivity();
         AllManagers.Instance.UpdateCalendarActivityUI();

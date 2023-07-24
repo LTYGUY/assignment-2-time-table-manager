@@ -36,6 +36,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         new AllManagers(this, getSupportFragmentManager());
         AllManagers.Instance.TakeCalendarActivity(this);
 
+        //Uncomment this if you encounter database issue. It will drop and create schedule table
+//        AllManagers.DataBaseManager.dropScheduleTable();
+//        AllManagers.DataBaseManager.createScheduleTable();
+
         initWidgets();
         selectedDate = LocalDate.now();
         calendarAdapter = new CalendarAdapter(new ArrayList<>(), this, new ArrayList<>(), selectedDate); // Create the adapter here
