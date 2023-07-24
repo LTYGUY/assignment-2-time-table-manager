@@ -1,4 +1,4 @@
-//Written by: Ting Ying, Lorraine, Yu Feng
+//Written by: Ting Ying, Lorraine
 
 package com.example.timetable;
 
@@ -145,6 +145,10 @@ public class AddNewScheduleFragment extends DialogFragment {
                 longitude = data.getDoubleExtra("longitude", 0);
                 updateLocationText(latitude, longitude);
                 locationEditTextValue = locationText.getText().toString();
+                // Add this line to set locationEditTextValue to null if it's empty
+                if (locationEditTextValue.isEmpty()) {
+                    locationEditTextValue = null;
+                }
             }
         }
     }
@@ -157,6 +161,9 @@ public class AddNewScheduleFragment extends DialogFragment {
                 Address address = addresses.get(0);
                 String locationName = address.getAddressLine(0);
                 locationText.setText(locationName);
+            } else {
+                // clear the locationText when no address is found
+                locationText.setText("");
             }
         } catch (IOException e) {
             e.printStackTrace();

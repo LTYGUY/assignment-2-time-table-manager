@@ -1,4 +1,5 @@
-//Written by: Lorraine, Yu Feng
+//Written by: Lorraine
+
 package com.example.timetable;
 
 import androidx.fragment.app.FragmentActivity;

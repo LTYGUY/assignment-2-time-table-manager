@@ -1,4 +1,4 @@
-//Written by: Ting Ying, Lorraine
+//Written by: Ting Ying, Lorraine, Yu Feng
 
 package com.example.timetable;
 
@@ -38,9 +38,6 @@ public class NavigationBarFragment extends Fragment {
         return v;
     }
 
-    /*private void setupMainScreenButton(ImageButton allScheduleButton) {
-        allScheduleButton.setOnClickListener(view -> AllManagers.NavigationManager.GoToMainActivity());
-    }*/
     private void setupMainScreenButton(ImageButton allScheduleButton) {
         allScheduleButton.setOnClickListener(view -> {
             AllManagers.NavigationManager.GoToActivity(ScheduleActivity.class,

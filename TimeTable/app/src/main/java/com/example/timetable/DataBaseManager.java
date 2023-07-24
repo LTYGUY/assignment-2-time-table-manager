@@ -155,15 +155,14 @@ public class DataBaseManager {
         db.execSQL(query);
     }
 
-    private String getCreateScheduleTableQuery()
-    {
+    private String getCreateScheduleTableQuery() {
         return QueryHelper.CreateTable(SCHEDULE_TABLE,
                 QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
                         + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
                         + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
                         + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
                         + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_TIME)
-                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_LOCATION));
+                        + QueryHelper.TextNotNull(SCHEDULE_ROW_LOCATION));  // changed to the version without comma
     }
 
     //create schedule table. Can also change it to public, just to call it once to create the table into the database
