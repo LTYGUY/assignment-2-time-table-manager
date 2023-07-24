@@ -23,14 +23,14 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private LocalDate selectedDate;
     private CalendarAdapter calendarAdapter;
 
-    //private DataBaseManager dataBaseManager;
+    private DataBaseManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_activity);
-
+        dbManager = new DataBaseManager(this);
         //just need to run this once for initialising
         //Load up all the managers this application will use
         new AllManagers(this, getSupportFragmentManager());
@@ -45,6 +45,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecyclerView.setAdapter(calendarAdapter);
 
         setMonthView();
+
     }
 
     private void initWidgets()
@@ -56,7 +57,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-        ArrayList scheduleDates = getScheduleDates(this);
+        ArrayList scheduleDates = getScheduleDates();
 
         //Update the adapter's data instead of creating a new adapter every time month view is set.
         calendarAdapter.updateData(daysInMonth, scheduleDates, selectedDate);
@@ -117,9 +118,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         }
     }
 
-    public ArrayList<String> getScheduleDates(CalendarActivity calendarActivity) {
-        DataBaseManager dbManager = new DataBaseManager(this);
+    public ArrayList<String> getScheduleDates() {
         return dbManager.getScheduleDates();
     }
-
 }
