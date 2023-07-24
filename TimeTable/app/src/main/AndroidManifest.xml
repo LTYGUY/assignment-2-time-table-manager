@@ -21,22 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeTable"
         tools:targetApi="31">
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
-
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
-<!--        Remember to uncomment below if you have setup the maps api key.
-            App will crash if you try to open maps with below commented out.-->
-        <!-- <meta-data -->
-        <!-- android:name="com.google.android.geo.API_KEY" -->
-        <!-- android:value="${MAPS_API_KEY}" /> -->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -98,7 +98,7 @@ public class AddNewScheduleFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupMapLauncher();
+
     }
 
     @Override
@@ -119,7 +119,7 @@ public class AddNewScheduleFragment extends DialogFragment {
 
         //Make passing values much easier
         EasySetupData easySetupData = new EasySetupData(v, purpose, scheduleRow);
-
+        setupMapLauncher();
         setupEditTexts(easySetupData);
         setupDateButton(easySetupData);
         setupTimeButton(easySetupData);
@@ -215,7 +215,7 @@ public class AddNewScheduleFragment extends DialogFragment {
         dateEditTextValue = row.Date;
         timeEditTextValue = row.Time;
         locationEditTextValue = row.Location;
-        //updateLocationText(latitude, longitude);
+        updateLocationText(latitude, longitude);
     }
 
     private void setupAddScheduleButton(EasySetupData esd) {
