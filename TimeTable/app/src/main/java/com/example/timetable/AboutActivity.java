@@ -13,11 +13,19 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        AllManagers.Instance.OpenedActivity(this, getSupportFragmentManager());
+        try {
+            AllManagers.Instance.OpenedActivity(this, getSupportFragmentManager());
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void GoBack(View view){
-        AllManagers.NavigationManager.CloseCurrentActivity();
+        try {
+            AllManagers.NavigationManager.CloseCurrentActivity();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //https://developer.android.com/guide/components/activities/activity-lifecycle
@@ -25,6 +33,10 @@ public class AboutActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        AllManagers.Instance.ClosedActivity();
+        try {
+            AllManagers.Instance.ClosedActivity();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
