@@ -252,8 +252,13 @@ public class DataBaseManager {
         list = ScheduleRow.GetSortedScheduleList(list);
 
         // Log the date and the list
-        Log.d("DatabaseManager", "Date: " + date + ", Schedules: " + list.toString());
+        //Log.d("DatabaseManager", "Date: " + date + ", Schedules: " + list);
 
         return list;
     }
+
+    public void close() {
+        db.close();
+    }
+
 }

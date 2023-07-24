@@ -25,11 +25,9 @@ public class  StringFormatHelper {
             Log.i("StringFormatHelper", "The day you have provided is empty!");
             return "";
         }
-
         Integer parsedDay = Integer.parseInt(day);
         String formatted = GetDate( month, parsedDay, year);
-
-        Log.i("StringFormatHelper", formatted);
+        //Log.i("StringFormatHelper", formatted);
         return formatted;
     }
 

@@ -61,7 +61,6 @@ public class AllManagers {
         return frag;
     }
 
-
     private Stack<FragmentManager> fragmentManagersStack = new Stack<>();
 
     //ref:https://developer.android.com/guide/components/activities/activity-lifecycle
@@ -85,4 +84,5 @@ public class AllManagers {
     {
         Toast.makeText(currentActivity, msg, Toast.LENGTH_SHORT).show();
     }
+
 }

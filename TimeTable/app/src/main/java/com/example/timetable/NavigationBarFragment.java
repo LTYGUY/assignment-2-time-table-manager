@@ -19,6 +19,7 @@ public class NavigationBarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -30,7 +31,7 @@ public class NavigationBarFragment extends Fragment {
         ImageButton notesButton = v.findViewById(R.id.notesScreenButton);
         ImageButton aboutButton = v.findViewById(R.id.aboutScreenButton);
 
-        setupMainScreenButton(allScheduleButton);
+        setupAllScheduleButton(allScheduleButton);
         setupAddButton(addButton);
         setupNotesButton(notesButton);
         setupAboutButton(aboutButton);
@@ -38,7 +39,7 @@ public class NavigationBarFragment extends Fragment {
         return v;
     }
 
-    private void setupMainScreenButton(ImageButton allScheduleButton) {
+    private void setupAllScheduleButton(ImageButton allScheduleButton) {
         allScheduleButton.setOnClickListener(view -> {
             AllManagers.NavigationManager.GoToActivity(ScheduleActivity.class,
                     (intentToModify)->
@@ -49,11 +50,6 @@ public class NavigationBarFragment extends Fragment {
         });
     }
 
-    private void setupAddButton(ImageButton addButton) {
-        addButton.setOnClickListener(view -> {
-            AllManagers.Instance.PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose.Add);
-        });
-    }
     private void setupAboutButton(ImageButton aboutButton) {
         aboutButton.setOnClickListener(view -> AllManagers.NavigationManager.GoToActivity(AboutActivity.class));
     }
@@ -61,4 +57,11 @@ public class NavigationBarFragment extends Fragment {
     private void setupNotesButton(ImageButton notesButton) {
         notesButton.setOnClickListener(view -> AllManagers.NavigationManager.GoToActivity(NotesActivity.class));
     }
+
+    private void setupAddButton(ImageButton addButton) {
+        addButton.setOnClickListener(view -> {
+            AllManagers.Instance.PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose.Add);
+        });
+    }
+
 }
