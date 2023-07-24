@@ -1,4 +1,5 @@
-//Written by: Ting Ying
+//Written by: Ting Ying, Lorraine
+
 package com.example.timetable;
 
 //SQLite query helper
@@ -46,4 +47,5 @@ public class QueryHelper {
     {
         return TextNotNullWithDefault(name, _default) + ",";
     }
+
 }

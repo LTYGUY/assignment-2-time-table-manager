@@ -1,8 +1,54 @@
 <resources>
     <string name="app_name">TimelyTable</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="app_dev">Developed By: Ting Ying, Collin, Yu Feng, Lorraine</string>
+
     <string name="app_desc">Timely Table is a timetable management application that enables users to efficiently schedule and plan their tasks.
         The app diligently notifies users of their pending tasks, ensuring they stay well-informed and effectively manage their time.</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <string name="schedule_details">Schedule Details</string>
+
+    <string name="add_new_description_title">add new description title</string>
+    <string name="add_new_name_title">add new name title</string>
+    <string name="add_new_time_title">add new time title</string>
+
+    <string name="date_button">date button</string>
+    <string name="time_button">time button</string>
+
+    <string name="date_label">Date:</string>
+    <string name="location_label">Location:</string>
+
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="name_label">Name:</string>
+    <string name="add_schedule">Add Schedule</string>
+    <string name="time_label">Time:</string>
+    <string name="speech_to_text">Speech to Text</string>
+    <string name="image_to_text">Image to Text</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="title">Title</string>
+    <string name="add_new_note">Add New Note</string>
+    <string name="app_version">V 1.0.0</string>
+    <string name="prev">Prev</string>
+    <string name="month_year_calendar_label">Month YYYY</string>
+    <string name="next">Next</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="cell_date">1</string>
+    <string name="add_new_location_title">add new location title</string>
+    <string name="all_schedule_button">all schedule button</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="add_button">add button</string>
+    <string name="notes_screen_button">notes screen button</string>
+    <string name="about_screen_button">about screen button</string>
 </resources>

@@ -19,7 +19,6 @@ import java.util.List;
 class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 {
     private ArrayList<String> daysOfMonth;
-
     private final OnItemListener onItemListener;
     private ArrayList scheduleDates;
     private LocalDate selectedDate;
@@ -83,26 +82,20 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         } else {
             holder.dayOfMonth.setTextColor(Color.BLACK);
         }
-
         String dayNumber = dayText.toString();
-
         //append more details.
         String formattedDate = StringFormatHelper.GetDate(getSelectedMonth(),dayNumber,getSelectedYear());
-
         List<ScheduleRow> scheduleList = AllManagers.DataBaseManager.getScheduleForDate(formattedDate);
 
         if (scheduleList.size() < 1)
             return;
-
         ScheduleRow rowToDisplay = ScheduleRow.GetClosestIncomingSchedule(scheduleList);
 
         if (rowToDisplay != null)
         {
             dayCellTextContent = rowToDisplay.Time + "\n" + rowToDisplay.Name;
         }
-
         cellContent.setText(dayCellTextContent);
-
     }
 
     private String getDateString(String dayText) {

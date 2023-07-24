@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_horizontal|center_vertical"
-            android:text="Schedule Details"
+            android:text="@string/schedule_details"
             android:textStyle="bold"
             android:textSize="24sp" />
 
@@ -38,9 +38,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:contentDescription="add new name title"
+                android:contentDescription="@string/add_new_name_title"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Name:"
+                android:text="@string/name_label"
                 android:textSize="16sp" />
 
             <EditText
@@ -50,7 +50,7 @@
                 android:layout_weight="9"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Name" />
+                android:text="@string/name" />
         </LinearLayout>
 
         <EditText
@@ -61,7 +61,7 @@
             android:ems="10"
             android:inputType="text"
             android:paddingHorizontal="10dp"
-            android:text="Description" />
+            android:text="@string/description" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,9 +76,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:contentDescription="add new description title"
+                android:contentDescription="@string/add_new_description_title"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Date:"
+                android:text="@string/date_label"
                 android:textSize="16sp" />
 
             <TextView
@@ -86,7 +86,6 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:textSize="16sp" />
 
             <ImageButton
@@ -95,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:contentDescription="date button"
+                android:contentDescription="@string/date_button"
                 android:src="@android:drawable/ic_menu_my_calendar" />
         </LinearLayout>
 
@@ -112,10 +111,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:contentDescription="add new time title"
+                android:contentDescription="@string/add_new_time_title"
                 android:gravity="center_horizontal|center_vertical"
                 android:singleLine="false"
-                android:text="Time:"
+                android:text="@string/time_label"
                 android:textSize="16sp" />
 
             <TextView
@@ -124,7 +123,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:textSize="16sp" />
 
             <ImageButton
@@ -133,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:contentDescription="time button"
+                android:contentDescription="@string/time_button"
                 android:src="@android:drawable/ic_menu_my_calendar" />
         </LinearLayout>
 
@@ -150,10 +148,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:contentDescription="add new location title"
+                android:contentDescription="@string/add_new_location_title"
                 android:gravity="center_horizontal|center_vertical"
                 android:singleLine="false"
-                android:text="Location:"
+                android:text="@string/location_label"
                 android:textSize="16sp" />
 
             <TextView
@@ -162,7 +160,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:textSize="16sp" />
 
             <ImageButton
@@ -182,8 +179,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Add Schedule" />
+            android:layout_marginTop="5dp"
+            android:text="@string/add_schedule" />
 
     </LinearLayout>
 

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
-            android:contentDescription="all schedule button"
+            android:contentDescription="@string/all_schedule_button"
             android:scaleType="fitCenter"
             android:src="@drawable/menu_calendar" />
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
-            android:contentDescription="add button"
+            android:contentDescription="@string/add_button"
             android:scaleType="fitCenter"
             android:src="@drawable/menu_add" />
 
@@ -38,7 +38,7 @@
             android:layout_height="51dp"
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
-            android:contentDescription="notes screen button"
+            android:contentDescription="@string/notes_screen_button"
             android:scaleType="fitCenter"
             android:src="@drawable/menu_notes" />
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/navigation_bar_background_color"
-            android:contentDescription="about screen button"
+            android:contentDescription="@string/about_screen_button"
             android:scaleType="fitCenter"
             android:src="@drawable/menu_info" />
     </LinearLayout>

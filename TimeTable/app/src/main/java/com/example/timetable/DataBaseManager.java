@@ -13,20 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseManager {
+
     private SQLiteDatabase db;
     public static final String TABLE_ROW_ID = "_id";
     private static final String DB_NAME = "time_table_db";
     private static final int DB_VERSION = 1;
-
-    //name for the table that will contain all schedules and their information
     private static final String SCHEDULE_TABLE = "schedule_table";
     private static final String SCHEDULE_ROW_NAME = "name";
     private static final String SCHEDULE_ROW_DESCRIPTION = "description";
     public static final String SCHEDULE_ROW_DATE = "date";
     private static final String SCHEDULE_ROW_TIME = "time";
+    private static final String SCHEDULE_ROW_LOCATION = "location";
 
     public DataBaseManager(Context context) {
-        // Create an instance of our internal CustomSQLiteOpenHelper class
         CustomSQLiteOpenHelper helper = new CustomSQLiteOpenHelper(context);
         // Get a writable database
         db = helper.getWritableDatabase();
@@ -36,11 +35,12 @@ public class DataBaseManager {
     public void insertSchedule(String name,
                                String description,
                                String date,
-                               String time)
+                               String time,
+                               String location)
     {
-        //Easier to read
         String query = String.format("INSERT INTO " + SCHEDULE_TABLE +
-                " (name, description, date, time) VALUES ('%s', '%s', '%s', '%s');", name, description, date, time);
+                        " (name, description, date, time, location) VALUES ('%s', '%s', '%s', '%s', '%s');",
+                name, description, date, time, location);
 
         Log.i("insertSchedule() = ", query);
         db.execSQL(query);
@@ -66,20 +66,21 @@ public class DataBaseManager {
                                       String name,
                                       String description,
                                       String date,
-                                      String time)
+                                      String time,
+                                      String location)
     {
-        updateScheduleRowById(new ScheduleRow(scheduleId,name,description,date,time));
+        updateScheduleRowById(new ScheduleRow(scheduleId,name,description,date,time,location));
     }
 
     //Update schedule row by given ScheduleRow, by its ScheduleId
     public void updateScheduleRowById(ScheduleRow row)
     {
-        //ref:https://stackoverflow.com/questions/9798473/sqlite-in-android-how-to-update-a-specific-row
         ContentValues cv = new ContentValues();
         cv.put(SCHEDULE_ROW_NAME, row.Name);
         cv.put(SCHEDULE_ROW_DESCRIPTION, row.Description);
         cv.put(SCHEDULE_ROW_DATE, row.Date);
         cv.put(SCHEDULE_ROW_TIME, row.Time);
+        cv.put(SCHEDULE_ROW_LOCATION, row.Location);
 
         Log.i("updateScheduleRowById()=", row.toString());
 
@@ -157,11 +158,12 @@ public class DataBaseManager {
     private String getCreateScheduleTableQuery()
     {
         return QueryHelper.CreateTable(SCHEDULE_TABLE,
-            QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
-                    + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
-                    + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
-                    + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
-                    + QueryHelper.TextNotNull(SCHEDULE_ROW_TIME));
+                QueryHelper.PrimaryIncrementKeyPhrase_Comma(TABLE_ROW_ID)
+                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_NAME)
+                        + QueryHelper.TextNotNullWithDefault_Comma(SCHEDULE_ROW_DESCRIPTION, "")
+                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_DATE)
+                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_TIME)
+                        + QueryHelper.TextNotNull_Comma(SCHEDULE_ROW_LOCATION));
     }
 
     //create schedule table. Can also change it to public, just to call it once to create the table into the database
@@ -210,8 +212,16 @@ public class DataBaseManager {
 
         // This method only runs when we increment DB_VERSION
         @Override
-        public void onUpgrade(SQLiteDatabase db,
-                              int oldVersion, int newVersion) {
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL("DROP TABLE IF EXISTS " + SCHEDULE_TABLE);
+            onCreate(db);
+        }
+
+        @Override
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            // Warning: This will delete all data
+            db.execSQL("DROP TABLE IF EXISTS " + SCHEDULE_TABLE);
+            onCreate(db);
         }
     }
 

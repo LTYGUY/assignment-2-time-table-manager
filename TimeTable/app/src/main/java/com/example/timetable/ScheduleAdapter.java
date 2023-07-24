@@ -17,56 +17,69 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleRow> {
         super(context, 0, items);
     }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.schedule_listitem, parent, false);
+            convertView = initializeView(parent);
         }
 
         ScheduleRow item = getItem(position);
 
+        setTextViews(convertView, item);
+        setButtonActions(convertView, item, position);
+
+        return convertView;
+    }
+
+    private View initializeView(ViewGroup parent) {
+        return LayoutInflater.from(getContext()).inflate(R.layout.schedule_listitem, parent, false);
+    }
+
+    private void setTextViews(View convertView, ScheduleRow item) {
         TextView time = convertView.findViewById(R.id.time);
         TextView date = convertView.findViewById(R.id.date);
         TextView title = convertView.findViewById(R.id.title);
         TextView description = convertView.findViewById(R.id.description);
+        TextView location = convertView.findViewById(R.id.location);
 
         time.setText(item.Time);
         date.setText(item.Date);
         title.setText(item.Name);
         description.setText(item.Description);
+        location.setText(item.Location);
+    }
 
-        Button btnEdit = convertView.findViewById((R.id.editBtn));
-        Button btnDelete = convertView.findViewById((R.id.deleteBtn));
+    private void setButtonActions(View convertView, ScheduleRow item, int position) {
+        Button btnEdit = convertView.findViewById(R.id.editBtn);
+        Button btnDelete = convertView.findViewById(R.id.deleteBtn);
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddNewScheduleFragment frag = AllManagers.Instance.PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose.Update, item.ScheduleId);
+        setEditButtonAction(btnEdit, item);
+        setDeleteButtonAction(btnDelete, item, position);
+    }
 
-                frag.setOnScheduleUpdatedListener(() -> {
-                    ScheduleRow updatedItem = AllManagers.DataBaseManager.getScheduleRowById(item.ScheduleId);
+    private void setEditButtonAction(Button btnEdit, ScheduleRow item) {
+        btnEdit.setOnClickListener(v -> {
+            AddNewScheduleFragment frag = AllManagers.Instance.PopupAddNewScheduleFragment(AddNewScheduleFragment.Purpose.Update, item.ScheduleId);
 
-                    item.CopyScheduleRow(updatedItem);
+            frag.setOnScheduleUpdatedListener(() -> {
+                ScheduleRow updatedItem = AllManagers.DataBaseManager.getScheduleRowById(item.ScheduleId);
 
-                    ThisDataSetChanged();
-                });
-            }
+                item.CopyScheduleRow(updatedItem);
+
+                ThisDataSetChanged();
+            });
         });
+    }
 
+    private void setDeleteButtonAction(Button btnDelete, ScheduleRow item, int position) {
         btnDelete.setTag(position);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (int) v.getTag();
-                ScheduleRow item = getItem(position);
-                AllManagers.DataBaseManager.deleteSchedule(item.ScheduleId);
-                removeItem(position);
-                notifyDataSetChanged();
-            }
+        btnDelete.setOnClickListener(v -> {
+            int position1 = (int) v.getTag();
+            ScheduleRow item1 = getItem(position1);
+            AllManagers.DataBaseManager.deleteSchedule(item1.ScheduleId);
+            removeItem(position1);
+            notifyDataSetChanged();
         });
-
-        return convertView;
     }
 
     private void ThisDataSetChanged()

@@ -21,7 +21,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         dayOfMonth = itemView.findViewById(R.id.cellDayText);
         content = itemView.findViewById(R.id.cellDayContent);
         this.onItemListener = onItemListener;
-        this.calendarAdapter = calendarAdapter; // store the Calenadapter reference
+        this.calendarAdapter = calendarAdapter; // store the Calendar adapter reference
         itemView.setOnClickListener(this);
     }
 

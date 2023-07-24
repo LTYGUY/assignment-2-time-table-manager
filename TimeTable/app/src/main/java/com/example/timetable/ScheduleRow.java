@@ -1,7 +1,9 @@
-//Written by: Ting Ying
+//Written by: Ting Ying, Lorraine
+
 package com.example.timetable;
 
 import android.database.Cursor;
+import android.location.Location;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -33,7 +35,6 @@ public class ScheduleRow {
                     earliestDate = otherRow;
                 }
             }
-
             sortedList.add(earliestDate);
             copyList.remove(earliestDate);
         }
@@ -45,7 +46,6 @@ public class ScheduleRow {
         long thisEpoch = 0;
         long otherEpoch = 0;
 
-        //ref:https://stackoverflow.com/questions/6687433/convert-a-date-format-in-epoch
         SimpleDateFormat df = new SimpleDateFormat(SIMPLE_DATE_TIME_FORMAT);
         try{
             java.util.Date thisDF = df.parse(GetSimpleDateFormat());
@@ -53,26 +53,20 @@ public class ScheduleRow {
         }
         catch (ParseException e)
         {
-
+            Log.e("ScheduleRow", "Failed to parse date: " + GetSimpleDateFormat(), e);
+            return false;
         }
-
         try{
             java.util.Date otherDF = df.parse(otherRow.GetSimpleDateFormat());
             otherEpoch = otherDF.getTime();
         }
         catch (ParseException e)
         {
-
-        }
-
-
-        if (thisEpoch > otherEpoch)
-        {
+            Log.e("ScheduleRow", "Failed to parse date: " + otherRow.GetSimpleDateFormat(), e);
             return false;
         }
 
-
-        return true;
+        return thisEpoch <= otherEpoch;
     }
 
     public static ScheduleRow GetClosestIncomingSchedule(List<ScheduleRow> list)
@@ -133,13 +127,12 @@ public class ScheduleRow {
         return closestIncomingSchedule;
     }
 
-
-
     public int ScheduleId;
     public String Name;
     public String Description;
     public String Date;
     public String Time;
+    public String Location;
 
     public ScheduleRow(Cursor c)
     {
@@ -148,15 +141,17 @@ public class ScheduleRow {
         Description = c.getString(2);
         Date = c.getString(3);
         Time = c.getString(4);
+        Location = c.getString(5);
     }
 
-    public ScheduleRow(int scheduleId, String name, String description, String date, String time)
+    public ScheduleRow(int scheduleId, String name, String description, String date, String time, String location)
     {
         ScheduleId = scheduleId;
         Name = name;
         Description = description;
         Date = date;
         Time = time;
+        Location = location;
     }
 
     public void CopyScheduleRow(ScheduleRow toCopy)
@@ -166,6 +161,7 @@ public class ScheduleRow {
         Description = toCopy.Description;
         Date = toCopy.Date;
         Time = toCopy.Time;
+        Location = toCopy.Location;
     }
 
     //For debugging
@@ -175,7 +171,8 @@ public class ScheduleRow {
                 + ", Name: " + Name
                 + ", Description: " + Description
                 + ", Date: " + Date
-                + ", Time: " + Time;
+                + ", Time: " + Time
+                + ", Location: " + Location;
     }
 
     public String GetSimpleDateFormat()

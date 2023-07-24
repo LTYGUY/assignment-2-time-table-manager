@@ -45,9 +45,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecyclerView.setAdapter(calendarAdapter);
 
         setMonthView();
-
-        //dataBaseManager = new DataBaseManager(this); // Assume you initialized the DataBaseManager here
-        //dataBaseManager.deleteAllSchedules();
     }
 
     private void initWidgets()
@@ -117,10 +114,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         {
             String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            return;
         }
     }
 
