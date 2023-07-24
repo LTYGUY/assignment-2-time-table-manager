@@ -44,7 +44,6 @@ public class AddNewScheduleFragment extends DialogFragment {
             ScheduleRow = s;
         }
     }
-
     public static final String PURPOSE = "purpose";
     public static final String SCHEDULE_ID = "scheduleId";
     public enum Purpose{
@@ -99,7 +98,7 @@ public class AddNewScheduleFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setupMapLauncher();
     }
 
     @Override
@@ -121,8 +120,6 @@ public class AddNewScheduleFragment extends DialogFragment {
         //Make passing values much easier
         EasySetupData easySetupData = new EasySetupData(v, purpose, scheduleRow);
 
-        //locationText = v.findViewById(R.id.addNewLocationTextView);
-        setupMapLauncher();
         setupEditTexts(easySetupData);
         setupDateButton(easySetupData);
         setupTimeButton(easySetupData);
@@ -145,9 +142,9 @@ public class AddNewScheduleFragment extends DialogFragment {
                 longitude = data.getDoubleExtra("longitude", 0);
                 updateLocationText(latitude, longitude);
                 locationEditTextValue = locationText.getText().toString();
-                // Add this line to set locationEditTextValue to null if it's empty
+
                 if (locationEditTextValue.isEmpty()) {
-                    locationEditTextValue = null;
+                    locationEditTextValue = null; //set locationEditTextValue to null if it's empty
                 }
             }
         }
@@ -161,9 +158,8 @@ public class AddNewScheduleFragment extends DialogFragment {
                 Address address = addresses.get(0);
                 String locationName = address.getAddressLine(0);
                 locationText.setText(locationName);
-            } else {
-                // clear the locationText when no address is found
-                locationText.setText("");
+            }else {
+                locationText.setText("");// clear the locationText when no address is found
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -199,6 +195,7 @@ public class AddNewScheduleFragment extends DialogFragment {
 
     private void setupForAdd() {
         titleText.setText("Add Schedule");
+
         nameEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(nameEditText));
         descriptionEditText.setOnFocusChangeListener(EditTextHelper.ClearOnFirstTap(descriptionEditText));
 
@@ -217,8 +214,8 @@ public class AddNewScheduleFragment extends DialogFragment {
         // need to assign it if user wants to update schedule
         dateEditTextValue = row.Date;
         timeEditTextValue = row.Time;
-        //locationEditTextValue = row.Location; //may not have to have this line since ald update in handleActivityResult
-        updateLocationText(latitude, longitude); //may or may not be this method, will have to test
+        locationEditTextValue = row.Location;
+        //updateLocationText(latitude, longitude);
     }
 
     private void setupAddScheduleButton(EasySetupData esd) {
@@ -262,7 +259,7 @@ public class AddNewScheduleFragment extends DialogFragment {
                 timeEditTextValue,
                 locationEditTextValue);
 
-        AllManagers.DataBaseManager.getAndLogAllSchedule();
+        //AllManagers.DataBaseManager.getAndLogAllSchedule();
         dismiss();
         AllManagers.Instance.MakeToast("Successfully added schedule!");
 
@@ -281,8 +278,9 @@ public class AddNewScheduleFragment extends DialogFragment {
                 locationEditTextValue);
 
         AllManagers.DataBaseManager.updateScheduleRowById(updatedRow);
-        AllManagers.DataBaseManager.getAndLogAllSchedule();
+        //AllManagers.DataBaseManager.getAndLogAllSchedule();
         dismiss();
+
         AllManagers.Instance.MakeToast("Successfully updated schedule!");
 
         if (onScheduleUpdatedListener != null) {
@@ -358,6 +356,12 @@ public class AddNewScheduleFragment extends DialogFragment {
         if (timeText.getText().toString().equals(""))
         {
             AllManagers.Instance.MakeToast("Please pick a time");
+            return false;
+        }
+
+        if (locationText.getText().toString().equals(""))
+        {
+            AllManagers.Instance.MakeToast("Please set a location");
             return false;
         }
         return true;

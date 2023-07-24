@@ -1,10 +1,11 @@
-//Written by: Ting Ying
+//Written by: Ting Ying, Lorraine
 //To help make navigating of screen to screen much more easier.
 
 package com.example.timetable;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.Stack;
 import java.util.concurrent.Callable;
@@ -12,7 +13,6 @@ import java.util.concurrent.Callable;
 public class NavigationManager {
     private Activity mainActivity = null;
     public Activity GetRunningRootActivity(){return mainActivity;}
-
     private Activity currentActivity = null;
     public Activity GetTopRunningActivity(){ return currentActivity; }
 
@@ -26,7 +26,6 @@ public class NavigationManager {
         //Don't allow SetMainScreen to happen twice, meant for the first actual main screen.
         if (mainActivity != null)
             return;
-
         mainActivity = main;
         OpenedActivity(mainActivity);
     }
@@ -49,11 +48,8 @@ public class NavigationManager {
     //Just go to activity without caring about modifying intent.
     public void GoToActivity(Class activity)
     {
-        GoToActivity(activity, new IntentDelegate() {
-            @Override
-            public void intentFunc(Intent intent) {
+        GoToActivity(activity, intent -> {
 
-            }
         });
     }
 
@@ -61,8 +57,7 @@ public class NavigationManager {
     //with a prevention of starting same as current activity.
     //Learnt from Lorraine's work done.
     //Also allows modification to intent
-    public void GoToActivity(Class activityClass, IntentDelegate intentDelegate)
-    {
+    public void GoToActivity(Class activityClass, IntentDelegate intentDelegate) {
         //if trying to go same activity, will do nothing
         if (activityClass == currentActivity.getClass())
             return;
@@ -84,11 +79,17 @@ public class NavigationManager {
     {
         activitiesFromBeginning.pop();
 
-        currentActivity = activitiesFromBeginning.peek();
+        // check if the stack is empty before peeking
+        if (!activitiesFromBeginning.empty()) {
+            currentActivity = activitiesFromBeginning.peek();
+        } else {
+            currentActivity = null; // or however you want to handle empty stack
+        }
 
         //Let AllManagers update its currentActivity
         return currentActivity;
     }
+
 
     public interface IntentDelegate{
         void intentFunc(Intent intent);
