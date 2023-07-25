@@ -1,4 +1,4 @@
-//Written by: Ting Ying, Lorraine
+//Written by: Ting Ying
 
 package com.example.timetable;
 

@@ -1,4 +1,4 @@
-//Written by: Ting Ying, Lorraine
+//Written by: Ting Ying
 //To help make navigating of screen to screen much more easier.
 
 package com.example.timetable;
@@ -93,7 +93,6 @@ public class NavigationManager {
         //Let AllManagers update its currentActivity
         return currentActivity;
     }
-
 
     public interface IntentDelegate{
         void intentFunc(Intent intent);

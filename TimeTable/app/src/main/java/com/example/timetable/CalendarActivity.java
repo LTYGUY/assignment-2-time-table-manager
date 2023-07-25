@@ -22,7 +22,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
     private CalendarAdapter calendarAdapter;
-
     private DataBaseManager dbManager;
 
     @Override

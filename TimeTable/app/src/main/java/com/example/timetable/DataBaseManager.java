@@ -251,7 +251,7 @@ public class DataBaseManager {
         //Added ascending sort.
         list = ScheduleRow.GetSortedScheduleList(list);
 
-        // Log the date and the list
+        //Uncomment to log the date and the list:
         //Log.d("DatabaseManager", "Date: " + date + ", Schedules: " + list);
 
         return list;

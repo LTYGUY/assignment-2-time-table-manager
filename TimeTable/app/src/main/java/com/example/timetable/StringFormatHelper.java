@@ -27,6 +27,8 @@ public class  StringFormatHelper {
         }
         Integer parsedDay = Integer.parseInt(day);
         String formatted = GetDate( month, parsedDay, year);
+
+        //Uncomment to log the formatted date:
         //Log.i("StringFormatHelper", formatted);
         return formatted;
     }
